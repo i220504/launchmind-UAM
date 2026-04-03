@@ -3,38 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaunchBuddy</title>
+    <title>LaunchBuddy - Your AI Cofounder</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-        header { background: #007bff; color: white; padding: 20px; text-align: center; }
-        h1 { margin: 0; font-size: 2.5em; }
-        h2 { margin: 0.5em 0; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
-        .cta { background: #28a745; color: white; padding: 15px 25px; text-align: center; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; transition: background 0.3s; }
-        .cta:hover { background: #218838; }
-        .features { margin: 20px 0; }
-        .feature { margin: 10px 0; padding: 10px; border-left: 4px solid #007bff; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            margin-top: 10px;
+            font-weight: normal;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+        .feature {
+            background: #e9ecef;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .cta {
+            display: block;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .cta:hover {
+            background-color: #218838;
+        }
         @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .cta { font-size: 1em; padding: 10px 20px; }
+            .container {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Launch Your Startup Idea with Ease!</h1>
-        <h2>Transform your rough concepts into compelling landing pages and investor messaging in under 24 hours with our AI-driven platform tailored for student founders.</h2>
-    </header>
-    <div class="container">
-        <div class="features">
-            <h3>Features:</h3>
-            <div class="feature"><strong>AI Content Generation:</strong> Utilize advanced natural language processing to effortlessly convert rough ideas into coherent and engaging landing pages.</div>
-            <div class="feature"><strong>Template Selection:</strong> Choose from customizable templates designed specifically for various industries, allowing you to personalize while saving time.</div>
-            <div class="feature"><strong>Investor Messaging Toolkit:</strong> Access pre-written templates and dynamic elements for tailored pitches, making it easy to attract potential investors.</div>
-            <div class="feature"><strong>User Feedback Loop:</strong> Provide input on generated content to enhance the AI's learning, resulting in increasingly refined outputs over time.</div>
-            <div class="feature"><strong>Mobile-Friendly Design:</strong> Enjoy a platform optimized for both desktop and mobile, enabling you to work from anywhere at any time.</div>
-        </div>
-        <button class="cta">Get Your Idea Launched Today!</button>
-    </div>
+
+<header>
+    <h1>LaunchBuddy</h1>
+    <h2>Your AI Cofounder</h2>
+</header>
+
+<div class="container">
+    <h2>Transform your rough concepts into compelling landing pages and investor messaging in under 24 hours!</h2>
+    <ul class="features">
+        <li class="feature">AI Content Generation: Convert your rough ideas into professional landing pages effortlessly.</li>
+        <li class="feature">Tailored Templates: Choose from various customizable templates for your audience.</li>
+        <li class="feature">Investor Messaging Toolkit: Access dynamic elements and pre-written templates for effective pitches.</li>
+        <li class="feature">User Feedback Loop: Improve your content with valuable user input.</li>
+        <li class="feature">Mobile-Friendly Design: Work from anywhere with our optimized platform.</li>
+    </ul>
+    <a href="#" class="cta">Get Started Today</a>
+</div>
+
 </body>
 </html>
