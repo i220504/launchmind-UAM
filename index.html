@@ -5,57 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaunchMate - Your AI Cofounder</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
-        h1 { margin: 0; font-size: 2.5em; }
-        h2 { margin: 10px 0 20px; font-weight: normal; }
-        .content { padding: 0 15px; }
-        .features { margin: 20px 0; }
-        .feature { background: #f0f0f0; margin: 10px 0; padding: 15px; border-radius: 5px; }
-        .cta { margin-top: 30px; text-align: center; }
-        .cta button { background-color: #f44336; color: white; border: none; padding: 15px 25px; font-size: 1.2em; cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 1em;
+            color: #555;
+        }
+        .cta {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .cta:hover {
+            background-color: #0056b3;
+        }
+        .features {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .feature {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
         @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.5em; }
-            .cta button { width: 100%; }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            .cta {
+                width: 100%;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Transform Your Startup Ideas Into Reality</h1>
-        <h2>LaunchMate is your AI cofounder that transforms rough startup ideas into professional landing pages, launch copy, and investor messaging, all in under 24 hours.</h2>
-    </header>
-    <div class="content">
-        <section class="features">
+    <div class="container">
+        <h1>Transform Your Ideas into Reality in Just One Day!</h1>
+        <h2>LaunchMate is your AI cofounder that turns rough startup ideas into polished landing pages, launch copy, and investor messaging—all in under 24 hours.</h2>
+        <a href="#" class="cta">Start Building Your Startup Now!</a>
+        <div class="features">
             <h2>Features</h2>
             <div class="feature">
-                <h3>AI-Powered Idea Generation</h3>
-                <p>Utilizes natural language processing to refine and structure rough startup ideas into clear proposals.</p>
+                <strong>AI-Powered Idea Generation:</strong> Utilizes natural language processing to refine and structure rough startup ideas into clear proposals.
             </div>
             <div class="feature">
-                <h3>Automated Landing Page Creator</h3>
-                <p>Generates visually appealing landing pages from user input, including templates tailored to various industries.</p>
+                <strong>Automated Landing Page Creator:</strong> Generates visually appealing landing pages from user input, including templates tailored to various industries.
             </div>
             <div class="feature">
-                <h3>Tailored Marketing Copy Generator</h3>
-                <p>Creates customized launch copy that highlights the startup's unique value proposition in a compelling way.</p>
+                <strong>Tailored Marketing Copy Generator:</strong> Creates customized launch copy that highlights your startup's unique value proposition in a compelling way.
             </div>
             <div class="feature">
-                <h3>Investor Messaging Tool</h3>
-                <p>Develops persuasive messaging specifically designed for investor outreach to clearly define potential ROI.</p>
+                <strong>Investor Messaging Tool:</strong> Develops persuasive messaging specifically designed for investor outreach to clearly define potential ROI.
             </div>
             <div class="feature">
-                <h3>User-friendly Interface</h3>
-                <p>An intuitive platform that allows users to easily navigate and generate outputs, making it accessible to non-technical users.</p>
+                <strong>User-friendly Interface:</strong> An intuitive platform that allows users to easily navigate and generate outputs, making it accessible to non-technical users.
             </div>
             <div class="feature">
-                <h3>24-Hour Turnaround Guarantee</h3>
-                <p>Ensures all products are completed within a set timeframe to meet the needs of fast-paced startups.</p>
+                <strong>24-Hour Turnaround Guarantee:</strong> Ensures all products are completed within a set timeframe to meet the needs of fast-paced startups.
             </div>
-        </section>
-        <div class="cta">
-            <button onclick="window.location.href='#'">Get Started Now</button>
         </div>
     </div>
 </body>
