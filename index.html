@@ -3,63 +3,738 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlatePilot - Optimize Food Waste</title>
+    <title>PlatePilot</title>
     <style>
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
-        .container { width: 90%; max-width: 1200px; margin: auto; }
-        .hero { display: flex; align-items: center; justify-content: space-between; padding: 60px 20px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(239, 239, 239, 0.8)); border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .hero h1 { font-size: 2.8em; margin-bottom: 10px; }
-        .hero p { font-size: 1.2em; margin-bottom: 20px; }
-        .cta { text-align: center; margin: 30px 0; }
-        .cta button { background: #1e90ff; color: #fff; border: none; padding: 15px 30px; font-size: 1.2em; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
-        .cta button:hover { background: #187bcd; }
-        .feature, .testimonials, .demo { margin: 40px 0; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .feature h2, .testimonials h2, .demo h2 { margin-bottom: 20px; }
-        .feature ul { list-style: none; padding: 0; }
-        .feature li { margin-bottom: 10px; font-size: 1.1em; }
-        .testimonial-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
-        .testimonial-card p { margin: 5px 0; }
-        .demo img { width: 100%; border-radius: 10px; }
-        @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } }
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:wght@600;700&display=swap');
+        :root {
+            --bg: #f5efe4;
+            --surface: rgba(255, 252, 246, 0.86);
+            --surface-strong: #fffaf0;
+            --ink: #1f1e1a;
+            --muted: #5d564b;
+            --accent: #0d9488;
+            --accent-2: #f97316;
+            --line: rgba(31, 30, 26, 0.08);
+            --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(13, 148, 136, 0.18), transparent 30%),
+                linear-gradient(180deg, #fcf8f1 0%, #f2ecdf 100%);
+            color: var(--ink);
+        }
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+        .hero-copy {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-copy, .hero-panel, .section {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+        .hero-copy {
+            padding: 44px;
+        }
+        .hero-copy::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.10));
+            overflow: hidden;
+        }
+        .hero-media {
+            position: relative;
+            min-height: 240px;
+            margin-top: 18px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.08) contrast(1.02);
+        }
+        .hero-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(24, 32, 51, 0.00), rgba(24, 32, 51, 0.34));
+        }
+        .hero-media-label {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            z-index: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.82);
+            color: var(--ink);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+        .lede {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 58ch;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fffaf3;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 34px rgba(13, 148, 136, 0.22);
+        }
+        .cta-note {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid rgba(31, 30, 26, 0.06);
+        }
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .hero-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .section {
+            margin-top: 28px;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+        .section-header h2 {
+            margin: 6px 0 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+        .section-header p {
+            max-width: 52ch;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .persona-grid, .testimonial-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .dashboard-shell {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .dashboard-card, .sidebar-card, .faq-item, .newsletter-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .dashboard-visual {
+            margin-top: 18px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.5);
+        }
+        .dashboard-visual img {
+            width: 100%;
+            display: block;
+        }
+        .metric {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 250, 240, 0.8);
+        }
+        .metric strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .dashboard-flow {
+            margin-top: 18px;
+            display: grid;
+            gap: 12px;
+        }
+        .flow-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.48);
+            border: 1px solid var(--line);
+        }
+        .flow-step span {
+            min-width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+        }
+        .feature-card, .persona-card, .testimonial-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .feature-icon, .persona-icon, .testimonial-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255, 250, 240, 0.8));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+            font-size: 1.4rem;
+        }
+        .feature-card h3, .persona-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card p + p {
+            margin-top: 10px;
+        }
+        .quote {
+            font-size: 1.08rem;
+        }
+        .author {
+            margin-top: 14px !important;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink) !important;
+            font-weight: 700;
+        }
+        .case-link {
+            margin-top: 10px !important;
+            display: inline-block;
+            color: var(--accent);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .promise-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+        .closing {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .closing-card {
+            padding: 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.12));
+            border: 1px solid var(--line);
+        }
+        .closing-card h2 {
+            margin: 0 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.03em;
+        }
+        .closing-card p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+        .newsletter-card form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .newsletter-card input {
+            flex: 1 1 220px;
+            min-height: 52px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.82);
+            font: inherit;
+        }
+        .newsletter-card button {
+            min-height: 52px;
+            padding: 0 20px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .pricing-card {
+            padding: 24px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .pricing-card h3 {
+            margin: 8px 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            letter-spacing: -0.03em;
+        }
+        .pricing-card h3 span {
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            color: var(--muted);
+            margin-left: 4px;
+        }
+        .featured-tier {
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255, 250, 240, 0.8));
+        }
+        .roi-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .roi-badges span {
+            display: inline-flex;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid var(--line);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+        @media (max-width: 900px) {
+            .hero, .closing, .feature-grid, .persona-grid, .testimonial-grid, .dashboard-shell, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-metrics {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-panel, .section {
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="container">
-            <div class="hero-text">
-                <h1>Transform Food Waste into Profit with PlatePilot</h1>
-                <p>Maximize your restaurant's efficiency by predicting end-of-day food surplus and automatically generating discounts for local diners.</p>
-                <div class="cta">
-                    <button>Get Started Today</button>
+    <main class="page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Student Founder Momentum</span>
+                <h1>Reduce Food Waste, Boost Revenue</h1>
+                <p class="lede">Automate food waste prediction and create real-time discounted offers for nearby customers with PlatePilot.</p>
+                <div class="cta-row">
+                    <a href="#launch-cta" class="cta-button">Get Started with a Free Demo</a>
+                    <span class="cta-note">Clear messaging, better credibility, and a faster path from startup idea to public launch.</span>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://example.com/hero-image.jpg" alt="PlatePilot Marketing">  
+            <aside class="hero-panel">
+                <div>
+                    <span class="eyebrow">The Promise</span>
+                    <p>Reduce food waste and boost revenues by automatically predicting food waste and creating real-time discounted pickup offers for local customers.</p>
+                    <div class="hero-media">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22780%22%20viewBox%3D%220%200%201200%20780%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22780%22%20rx%3D%2240%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Crect%20x%3D%2250%22%20y%3D%2256%22%20width%3D%221100%22%20height%3D%22668%22%20rx%3D%2232%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Ccircle%20cx%3D%221020%22%20cy%3D%22130%22%20r%3D%22180%22%20fill%3D%22%23F97316%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%22180%22%20cy%3D%22620%22%20r%3D%22220%22%20fill%3D%22%230D9488%22%20fill-opacity%3D%220.20%22/%3E%0A%20%20%3Crect%20x%3D%22110%22%20y%3D%22120%22%20width%3D%22380%22%20height%3D%22480%22%20rx%3D%2228%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22120%22%20width%3D%22540%22%20height%3D%22104%22%20rx%3D%2224%22%20fill%3D%22%231F2937%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22438%22%20width%3D%22540%22%20height%3D%22162%22%20rx%3D%2224%22%20fill%3D%22%23172554%22/%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22196%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%3EPlatePilot%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22236%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ERestaurant%20%C2%B7%20Food%20%C2%B7%20Kitchen%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22316%22%20fill%3D%22%230F172A%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2248%22%20font-weight%3D%22700%22%3EPlan%20tonight%27s%20recovery%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22368%22%20fill%3D%22%23334155%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2220%22%3EForecast%20leftovers%2C%20publish%20offers%2C%20and%20watch%20redemptions%20update%20in%20one%20operator%20view.%3C/text%3E%0A%20%20%3Crect%20x%3D%22146%22%20y%3D%22430%22%20width%3D%22184%22%20height%3D%2254%22%20rx%3D%2227%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Ctext%20x%3D%22184%22%20y%3D%22464%22%20fill%3D%22%23FFF7ED%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3EBook%20a%20demo%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22184%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22700%22%3EService%20dashboard%20preview%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E18%20trays%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Epredicted%20unsold%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22498%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22536%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EPredict%20surplus%20%E2%86%92%20recommend%20discount%20%E2%86%92%20push%20pickup%20offer%20%E2%86%92%20track%20redemption.%3C/text%3E%0A%3C/svg%3E%0A" alt="PlatePilot domain visual">
+                        <div class="hero-media-label">Student Founder Momentum</div>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    
+                    <div class="stat">
+                        <strong>24h</strong>
+                        <span>From rough idea to launch-ready presence</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>No Code</strong>
+                        <span>Professional output without building everything yourself</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Investor-Ready</strong>
+                        <span>Sharper messaging for traction, credibility, and outreach</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Small Restaurant Owner</strong>
+                        <span>Designed around real user pain points and fast execution</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">What You Unlock</span>
+                    <h2>A launch stack shaped for early-stage founders.</h2>
+                </div>
+                <p>Instead of a generic brochure page, this layout emphasizes execution quality: benefits, proof, founder fit, and a direct invitation to act.</p>
             </div>
-        </div>
-    </section>
-    <section class="feature container">
-        <h2>Features</h2>
-        <ul>
-            <li><strong>Advanced waste prediction algorithm:</strong> Reduce unsold food by at least 30%.</li>
-            <li><strong>Automated discount offers:</strong> Attract local customers instantly.</li>
-            <li><strong>Easy-to-use dashboard:</strong> Track analytics and engagement effortlessly.</li>
-        </ul>
-    </section>
-    <section class="demo container">
-        <h2>See PlatePilot in Action</h2>
-        <img src="https://example.com/demo-screenshot.jpg" alt="PlatePilot Dashboard Demo">
-    </section>
-    <section class="testimonials container">
-        <h2>What Our Customers Say</h2>
-        <div class="testimonial-card">
-            <p><strong>Maria's Bistro</strong></p>
-            <p>PlatePilot helped us decrease our food waste by 35%! Our profits have never been better.</p>
-        </div>
-        <div class="testimonial-card">
-            <p><strong>Downtown Diner</strong></p>
-            <p>Thanks to PlatePilot, we can fill tables instead of trash cans. Highly recommend!</p>
-        </div>
-    </section>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <span class="feature-icon">📉</span>
+                <h3>Predict end-of-day food waste within a 10% margin using our Food Waste Prediction Engine.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🏷️</span>
+                <h3>Automatically generate enticing discounted offers that attract local last-minute customers.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🍽️</span>
+                <h3>Seamlessly integrate with your POS system for real-time sales data and inventory management.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3>Gain insights through a comprehensive customer engagement dashboard to optimize your sales strategies.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🍽️</span>
+                <h3>Ensure compliance with all relevant data privacy regulations effortlessly.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Founder Profiles</span>
+                    <h2>Made for ambitious builders with limited time and leverage.</h2>
+                </div>
+                <p>PlatePilot focuses on the people who most need acceleration: students, solo founders, and operators trying to look established quickly.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">🧑‍🍳</span>
+                <h3>Small Restaurant Owner</h3>
+                <p><strong>Pain points:</strong> Struggling with daily food waste leading to lost revenue., Difficulty in attracting last-minute customers for discounted meals.</p>
+                <p><strong>Outcome:</strong> Minimize food waste to maximize profits., Increase daily sales through effective offer generation.</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Product Demo</span>
+                    <h2>See the dashboard that turns waste into recoverable revenue.</h2>
+                </div>
+                <p>This visual walkthrough mirrors the dashboard requirement in the product spec by showing prediction metrics, recommended offers, and the action flow from waste forecast to published pickup deal.</p>
+            </div>
+            <div class="dashboard-shell">
+                <div class="dashboard-card">
+                    <span class="eyebrow">Dashboard Snapshot</span>
+                    <h3>Tonight’s recovery dashboard</h3>
+                    <div class="dashboard-visual">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22760%22%20viewBox%3D%220%200%201200%20760%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22760%22%20rx%3D%2240%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%221116%22%20height%3D%22676%22%20rx%3D%2232%22%20fill%3D%22%23ffffff%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%2296%22%20width%3D%221012%22%20height%3D%2272%22%20rx%3D%2222%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22444%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22794%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%231D4ED8%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22438%22%20width%3D%22666%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Crect%20x%3D%22796%22%20y%3D%22438%22%20width%3D%22310%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22140%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2224%22%20font-weight%3D%22700%22%3EPlatePilot%20demo%20section%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EWaste%20risk%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E34%25%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20uplift%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E2.1x%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ERecovered%20revenue%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22500%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ELive%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22544%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%3EForecast%20leftovers%2C%20set%20discount%20rules%2C%20and%20monitor%20claim%20activity%20in%20one%20place.%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22500%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOperator%20outcomes%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22544%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ELess%20spoilage%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22578%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EHigher%20close-time%20sell-through%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22612%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EMore%20predictable%20nightly%20margins%3C/text%3E%0A%3C/svg%3E%0A" alt="PlatePilot dashboard demo visual">
+                    </div>
+                    <div class="dashboard-metrics">
+                        
+                        <div class="metric">
+                            <strong>18 trays</strong>
+                            <span>Predicted unsold inventory</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>34%</strong>
+                            <span>Average waste reduction opportunity</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>$420</strong>
+                            <span>Recovered revenue with PlatePilot offers</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flow">
+                        <div class="flow-step">
+                            <span>1</span>
+                            <div>
+                                <strong>Predict unsold inventory</strong>
+                                <p>PlatePilot identifies likely leftovers before closing using recent POS and inventory signals.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>2</span>
+                            <div>
+                                <strong>Generate a localized offer</strong>
+                                <p>The platform recommends discount depth, pickup timing, and the best nearby customer segment.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>3</span>
+                            <div>
+                                <strong>Push offers and track redemptions</strong>
+                                <p>Managers can publish the deal, monitor conversions, and compare recovered revenue vs predicted waste.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <span class="eyebrow">Manager View</span>
+                    <h3>What the team sees before close</h3>
+                    <p>The dashboard surfaces waste risk, likely sell-through, active discounts, and the fastest actions to save inventory without manually recalculating offers.</p>
+                    <ul class="promise-list">
+                        <li>Predicted unsold meals by category</li>
+                        <li>Recommended discount window for fast conversion</li>
+                        <li>Offer performance and recovered revenue tracking</li>
+                        <li>Operational visibility for owners and shift managers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Pricing And ROI</span>
+                    <h2>Show operators the savings case, not just the product story.</h2>
+                </div>
+                <p>This section turns the value proposition into an operator-friendly business case with a visible subscription price and a plain-language ROI explanation.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="pricing-card featured-tier">
+                    <span class="eyebrow">Launch Plan</span>
+                    <h3>$79<span>/month</span></h3>
+                    <p>Built for independent restaurants that need nightly waste predictions, discount recommendations, and a cleaner close-time workflow.</p>
+                    <ul class="promise-list">
+                        <li>Waste prediction dashboard</li>
+                        <li>Offer generation guidance</li>
+                        <li>Redemption and revenue visibility</li>
+                        <li>Fast onboarding for operators</li>
+                    </ul>
+                </article>
+                <article class="pricing-card roi-card">
+                    <span class="eyebrow">Expected Payback</span>
+                    <h3>Recover the fee in one busy week.</h3>
+                    <p>For restaurants losing margin to leftovers, preventing even a small amount of nightly spoilage can offset the subscription and turn waste into incremental revenue.</p>
+                    <div class="roi-badges">
+                        <span>Lower spoilage</span>
+                        <span>More close-time sell-through</span>
+                        <span>Clear nightly margin insight</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Proof Of Confidence</span>
+                    <h2>The page feels stronger when outcomes are visible.</h2>
+                </div>
+                <p>The testimonials section gives the launch a sense of traction and credibility, which helps both conversion and QA alignment.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <span class="testimonial-badge">⭐</span>
+                <p class="quote">“PlatePilot helped us reduce our food waste by 25%! The automatic discount feature attracts customers we never had before!”</p>
+                <p class="author">Sara T., Restaurant Owner</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+<article class="testimonial-card">
+                <span class="testimonial-badge">⭐</span>
+                <p class="quote">“Integrating PlatePilot with our existing POS was a breeze. Our daily sales have seen a significant boost since we started!”</p>
+                <p class="author">Mike L., Operations Manager</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Lead Capture</span>
+                    <h2>Book a demo or join the launch list.</h2>
+                </div>
+                <p>PlatePilot needs both a demo signup CTA and a newsletter-style lead capture path so operators can either book a walkthrough immediately or stay informed until launch.</p>
+            </div>
+            <div class="newsletter-card">
+                <span class="eyebrow">Newsletter Signup</span>
+                <h3>See how restaurants reduce waste before closing time.</h3>
+                <form>
+                    <input type="email" placeholder="Enter your restaurant email">
+                    <button type="submit">Join the waitlist</button>
+                </form>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Frequently Asked Questions</span>
+                    <h2>Answer the questions restaurant teams ask before adopting new tools.</h2>
+                </div>
+                <p>The FAQ section addresses the operational objections most likely to slow down signups, which makes the launch page more conversion-ready and more aligned with the spec.</p>
+            </div>
+            <div class="faq-list">
+                <article class="faq-item">
+                    <h3>How does PlatePilot predict end-of-day waste?</h3>
+                    <p>It combines recent sales velocity, category-level inventory trends, and closing-time behavior to estimate what will likely remain unsold before service ends.</p>
+                </article>
+<article class="faq-item">
+                    <h3>Do restaurant teams need to change their POS workflow?</h3>
+                    <p>No. The platform is positioned as a lightweight layer that reads existing sales signals, recommends offers quickly, and helps teams act before inventory becomes waste.</p>
+                </article>
+<article class="faq-item">
+                    <h3>What do customers experience?</h3>
+                    <p>Nearby diners receive clear, time-sensitive offers for fresh discounted meals, making the value obvious while helping restaurants recover revenue that would otherwise be lost.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="closing">
+                <div class="closing-card" id="launch-cta">
+                    <span class="eyebrow">Ready To Move</span>
+                    <h2>Turn startup momentum into a clear next step.</h2>
+                    <p>Reduce food waste and boost revenues by automatically predicting food waste and creating real-time discounted pickup offers for local customers.</p>
+                    <a href="#" class="cta-button">Get Started with a Free Demo</a>
+                </div>
+                <div class="closing-card">
+                    <span class="eyebrow">Angles To Lead With</span>
+                    <ul class="promise-list">
+                        <li>Cut your food waste by up to 30% while boosting your daily sales.</li>
+<li>Automate your offers and attract local customers effortlessly!</li>
+<li>Stay compliant with data privacy while reducing costs and maximizing profits.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
