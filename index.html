@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlatePilot</title>
+    <style>
+        :root {
+            --bg: #eef3ff;
+            --surface: rgba(255, 255, 255, 0.84);
+            --surface-strong: #ffffff;
+            --ink: #182033;
+            --muted: #52607a;
+            --accent: #2563eb;
+            --accent-2: #14b8a6;
+            --line: rgba(31, 30, 26, 0.08);
+            --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 28%),
+                radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 30%),
+                linear-gradient(180deg, #f7faff 0%, #e9f0ff 100%);
+            color: var(--ink);
+        }
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+        .hero-copy, .hero-panel, .section {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+        .hero-copy {
+            padding: 44px;
+        }
+        .hero-panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(20, 184, 166, 0.10));
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+        .lede {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 58ch;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fffaf3;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 34px rgba(37, 99, 235, 0.24);
+        }
+        .cta-note {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(245, 248, 255, 0.92);
+            border: 1px solid rgba(31, 30, 26, 0.06);
+        }
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .hero-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .section {
+            margin-top: 28px;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+        .section-header h2 {
+            margin: 6px 0 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+        .section-header p {
+            max-width: 52ch;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .persona-grid, .testimonial-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .feature-card, .persona-card, .testimonial-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .feature-card h3, .persona-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card p + p {
+            margin-top: 10px;
+        }
+        .quote {
+            font-size: 1.08rem;
+        }
+        .author {
+            margin-top: 14px !important;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink) !important;
+            font-weight: 700;
+        }
+        .promise-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+        .closing {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .closing-card {
+            padding: 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.10), rgba(20, 184, 166, 0.14));
+            border: 1px solid var(--line);
+        }
+        .closing-card h2 {
+            margin: 0 0 12px;
+            font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.03em;
+        }
+        .closing-card p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+        @media (max-width: 900px) {
+            .hero, .closing, .feature-grid, .persona-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-panel, .section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">From Rough Idea To Release</span>
+                <h1>Reduce Food Waste and Attract Customers with PlatePilot</h1>
+                <p class="lede">Smart predictions and instant discounts helping small restaurants thrive while serving the community.</p>
+                <div class="cta-row">
+                    <a href="#launch-cta" class="cta-button">Get Started Today and Minimize Your Waste!</a>
+                    <span class="cta-note">A stable launch page, sharper positioning, and a more convincing story for users and investors.</span>
+                </div>
+            </div>
+            <aside class="hero-panel">
+                <div>
+                    <span class="eyebrow">Strategic Value</span>
+                    <p>PlatePilot helps small restaurants minimize food waste by predicting end-of-day spoilage and generating instant discounts for nearby customers, driving savings for the restaurant and attracting more customers.</p>
+                </div>
+                <div class="hero-stats">
+                    
+                    <div class="stat">
+                        <strong>24h</strong>
+                        <span>From rough idea to launch-ready presence</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>No Code</strong>
+                        <span>Professional output without building everything yourself</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Investor-Ready</strong>
+                        <span>Sharper messaging for traction, credibility, and outreach</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Restaurant Owner</strong>
+                        <span>Designed around real user pain points and fast execution</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Execution Layers</span>
+                    <h2>More than a landing page: a clearer market-facing story.</h2>
+                </div>
+                <p>The sections stay reliable for QA, but the presentation shifts to match the product identity, target users, and founder expectations.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <h3>Food Waste Prediction Engine - Accurate predictions to save you money.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <h3>Discount Offer Generator - Customized deals ready in 5 minutes.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <h3>POS Integration - Real-time data for precise forecasts.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <h3>User-Friendly Dashboard - Simplified management of offers and sales.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <h3>Customer Notification System - Inform local diners about your deals.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Audience Fit</span>
+                    <h2>The strongest launches speak directly to their real users.</h2>
+                </div>
+                <p>PlatePilot is framed here around the specific founder personas in the product spec so the experience feels intentional rather than one-size-fits-all.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <h3>Restaurant Owner</h3>
+                <p><strong>Pain points:</strong> High levels of unsold food leading to waste and financial loss., Need for an effective way to attract last-minute customers.</p>
+                <p><strong>Outcome:</strong> Reduce food waste by accurately predicting end-of-day spoilage., Increase revenue through last-minute customer sales.</p>
+            </article>
+<article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <h3>Customer</h3>
+                <p><strong>Pain points:</strong> Limited dining options with affordable pricing., Desire for fresh meals at discounted prices.</p>
+                <p><strong>Outcome:</strong> Access to last-minute meal discounts close to home., Enjoy high-quality meals at a lower price point.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Trust Signals</span>
+                    <h2>Social proof makes the value proposition feel believable.</h2>
+                </div>
+                <p>This section adds credibility and emotional reassurance so the page does not rely on feature claims alone.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <p class="quote">“PlatePilot has revolutionized our approach to managing food waste, significantly increasing our revenue through last-minute sales!”</p>
+                <p class="author">Emily R., Restaurant Owner</p>
+            </article>
+<article class="testimonial-card">
+                <p class="quote">“I love finding fresh meal deals at a discount from my favorite local restaurants. It&#x27;s a win-win!”</p>
+                <p class="author">Josh T., Local Customer</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="closing">
+                <div class="closing-card" id="launch-cta">
+                    <span class="eyebrow">Take The Next Step</span>
+                    <h2>Make the launch page work like a real growth asset.</h2>
+                    <p>PlatePilot helps small restaurants minimize food waste by predicting end-of-day spoilage and generating instant discounts for nearby customers, driving savings for the restaurant and attracting more customers.</p>
+                    <a href="#" class="cta-button">Get Started Today and Minimize Your Waste!</a>
+                </div>
+                <div class="closing-card">
+                    <span class="eyebrow">Positioning Lines</span>
+                    <ul class="promise-list">
+                        <li>Reduce your restaurant&#x27;s food waste by up to 40% with smart predictions.</li>
+<li>Instant discounts for local foodies at restaurants near you – find deals in real-time.</li>
+<li>Transform your leftovers into profits while serving your community.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
