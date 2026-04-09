@@ -3,45 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Cofounder</title>
+    <title>AI Cofounder Landing Page</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { font-size: 2.5em; color: #333; }
-        h2 { font-size: 1.5em; color: #555; }
-        section { margin-bottom: 40px; }
-        .features, .testimonials { display: flex; flex-wrap: wrap; justify-content: space-around; }
-        .feature, .testimonial { box-sizing: border-box; width: 30%; min-width: 260px; padding: 20px; border: 1px solid #ddd; margin: 10px; border-radius: 8px; }
-        .cta-button { background: #28a745; color: white; padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 5px; cursor: pointer; }
-        footer { text-align: center; margin-top: 40px; }
-        @media (max-width: 600px) { .feature, .testimonial { width: 100%; } }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        header { background: #007BFF; color: #fff; padding: 20px; text-align: center; }
+        h1 { margin: 0; font-size: 2.5em; }
+        h2 { font-size: 1.5em; margin: 10px 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        section { margin: 40px 0; padding: 20px; background: #fff; border-radius: 8px; }
+        .features, .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature, .testimonial { padding: 15px; border: 1px solid #ccc; border-radius: 6px; }
+        .cta { background: #28a745; color: #fff; padding: 15px 30px; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; text-decoration: none; display: inline-block; }
+        @media (max-width: 600px) { h1 { font-size: 2em; } h2 { font-size: 1.2em; } }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Empower Your Startup Journey with AI Cofounder</h1>
+        <h2>Transform your rough startup ideas into polished landing pages, launch copy, and investor messaging—all within a day.</h2>
+    </header>
     <div class="container">
-        <header>
-            <h1>Transform Your Startup Ideas into Professional Assets in Just 24 Hours</h1>
-            <h2>Empowering student founders to create stunning landing pages, engaging launch copy, and investor-ready messaging all in one day.</h2>
-            <button class="cta-button">Start Your Journey Now</button>
-        </header>
-        <section class="features">
-            <h2>Key Features</h2>
-            <div class="feature"><h3>AI-Powered Idea Extraction</h3><p>Extracts core elements of your startup idea for effective marketing.</p></div>
-            <div class="feature"><h3>Dynamic Landing Page Generator</h3><p>Create visually appealing and customizable landing pages that work on any device.</p></div>
-            <div class="feature"><h3>Tailored Launch Copy Generation</h3><p>Get engaging copy that speaks directly to your target audience.</p></div>
-            <div class="feature"><h3>Investor Messaging Creator</h3><p>Craft compelling messages to attract interest from potential investors.</p></div>
-            <div class="feature"><h3>User-Friendly Interface</h3><p>An intuitive platform guiding you through each step with ease.</p></div>
-            <div class="feature"><h3>Feedback Loop Integration</h3><p>Continuous improvement through user feedback on generated content.</p></div>
+        <section>
+            <h3>Features</h3>
+            <div class="features">
+                <div class="feature"><strong>AI-Powered Idea Extraction:</strong> Craft compelling narratives.</div>
+                <div class="feature"><strong>Dynamic Landing Page Generator:</strong> Stunning, responsive designs.
+                </div>
+                <div class="feature"><strong>Tailored Launch Copy Generation:</strong> Maximize audience engagement.
+                </div>
+                <div class="feature"><strong>Investor Messaging Creator:</strong> Capture interest and support.
+                </div>
+                <div class="feature"><strong>User-Friendly Interface:</strong> Guiding you from idea to execution.
+                </div>
+                <div class="feature"><strong>Feedback Loop Integration:</strong> Continual improvement of your outputs.
+                </div>
+            </div>
         </section>
-        <section class="testimonials">
-            <h2>What Our Users Say</h2>
-            <div class="testimonial"><p><strong>Alex J., Student Entrepreneur</strong><br>"AI Cofounder helped me turn my vague idea into a beautiful, professional landing page overnight!"</p></div>
-            <div class="testimonial"><p><strong>Sarah L., Aspiring Founder</strong><br>"With tailored messaging from AI Cofounder, I was able to secure meetings with investors I never thought possible."</p></div>
+        <section>
+            <h3>Testimonials</h3>
+            <div class="testimonials">
+                <div class="testimonial"><strong>Jane Doe, Student Entrepreneur:</strong><br> "Thanks to AI Cofounder, I was able to present my startup idea professionally and confidently in just a day!"</div>
+                <div class="testimonial"><strong>Mark Smith, Aspiring Founder:</strong><br> "The tailored messaging helped me stand out and attract potential investors!"</div>
+                <div class="testimonial"><strong>Emily Johnson, Tech Student:</strong><br> "I never thought I could create such a polished landing page without any design skills—AI Cofounder made it easy!"</div>
+            </div>
         </section>
-        <footer>
-            <p>&copy; 2023 AI Cofounder. All Rights Reserved.</p>
-        </footer>
+        <div style="text-align:center; margin: 40px 0;">
+            <a href="#" class="cta">Get Started Now</a>
+        </div>
     </div>
 </body>
 </html>
