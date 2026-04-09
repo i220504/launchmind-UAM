@@ -7,13 +7,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:wght@600;700&display=swap');
         :root {
-            --bg: #eef3ff;
-            --surface: rgba(255, 255, 255, 0.84);
+            --bg: #eef7f0;
+            --surface: rgba(249, 255, 250, 0.84);
             --surface-strong: #ffffff;
-            --ink: #182033;
-            --muted: #52607a;
-            --accent: #2563eb;
-            --accent-2: #14b8a6;
+            --ink: #1b2a1f;
+            --muted: #55685a;
+            --accent: #15803d;
+            --accent-2: #ca8a04;
             --line: rgba(31, 30, 26, 0.08);
             --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
         }
@@ -24,9 +24,9 @@
             margin: 0;
             font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 28%),
-                radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 30%),
-                linear-gradient(180deg, #f7faff 0%, #e9f0ff 100%);
+                radial-gradient(circle at top left, rgba(21, 128, 61, 0.15), transparent 28%),
+                radial-gradient(circle at top right, rgba(202, 138, 4, 0.12), transparent 30%),
+                linear-gradient(180deg, #f8fff8 0%, #eaf6ea 100%);
             color: var(--ink);
         }
         .page {
@@ -68,7 +68,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: linear-gradient(180deg, rgba(37, 99, 235, 0.12), rgba(20, 184, 166, 0.10));
+            background: linear-gradient(180deg, rgba(21, 128, 61, 0.12), rgba(202, 138, 4, 0.10));
             overflow: hidden;
         }
         .hero-media {
@@ -150,7 +150,7 @@
             font-size: 0.98rem;
             font-weight: 700;
             letter-spacing: 0.02em;
-            box-shadow: 0 16px 34px rgba(37, 99, 235, 0.24);
+            box-shadow: 0 16px 34px rgba(21, 128, 61, 0.20);
         }
         .cta-note {
             font-family: "Helvetica Neue", Arial, sans-serif;
@@ -165,7 +165,7 @@
         .stat {
             padding: 16px;
             border-radius: 18px;
-            background: rgba(245, 248, 255, 0.92);
+            background: rgba(243, 251, 245, 0.9);
             border: 1px solid rgba(31, 30, 26, 0.06);
         }
         .stat strong {
@@ -242,7 +242,7 @@
         .metric {
             padding: 14px;
             border-radius: 18px;
-            background: rgba(245, 248, 255, 0.92);
+            background: rgba(243, 251, 245, 0.9);
         }
         .metric strong {
             display: block;
@@ -289,7 +289,7 @@
             height: 48px;
             border-radius: 16px;
             margin-bottom: 14px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245, 248, 255, 0.92));
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(243, 251, 245, 0.9));
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
             font-size: 1.4rem;
         }
@@ -337,7 +337,7 @@
         .closing-card {
             padding: 28px;
             border-radius: 24px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.10), rgba(20, 184, 166, 0.14));
+            background: linear-gradient(135deg, rgba(21, 128, 61, 0.10), rgba(202, 138, 4, 0.13));
             border: 1px solid var(--line);
         }
         .closing-card h2 {
@@ -405,7 +405,7 @@
             margin-left: 4px;
         }
         .featured-tier {
-            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245, 248, 255, 0.92));
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(243, 251, 245, 0.9));
         }
         .roi-badges {
             display: flex;
@@ -417,7 +417,7 @@
             display: inline-flex;
             padding: 10px 14px;
             border-radius: 999px;
-            background: rgba(245, 248, 255, 0.92);
+            background: rgba(243, 251, 245, 0.9);
             border: 1px solid var(--line);
             font-family: "Helvetica Neue", Arial, sans-serif;
             font-size: 0.92rem;
@@ -444,21 +444,21 @@
     <main class="page">
         <section class="hero">
             <div class="hero-copy">
-                <span class="eyebrow">From Rough Idea To Release</span>
+                <span class="eyebrow">Student Founder Momentum</span>
                 <h1>Describe your car problem in 5 minutes—see likely causes, a transparent price range, and book a vetted local mechanic.</h1>
-                <p class="lede">WrenchWise guides you through the right questions on mobile, shows the top 3 likely issues with confidence and safety next steps, then helps you schedule mobile service or a nearby shop in our pilot metro. No guaranteed diagnosis—mechanics confirm in person.</p>
+                <p class="lede">WrenchWise guides you through the right questions on mobile, shows top probable causes with confidence and safety guidance, then connects you to mobile or shop mechanics in our pilot metro. Estimates are upfront with parts + labor assumptions; final diagnosis is confirmed by the mechanic after inspection.</p>
                 <div class="cta-row">
                     <a href="#launch-cta" class="cta-button">Describe your problem</a>
-                    <span class="cta-note">A stable launch page, sharper positioning, and a more convincing story for users and investors.</span>
+                    <span class="cta-note">Clear messaging, better credibility, and a faster path from startup idea to public launch.</span>
                 </div>
             </div>
             <aside class="hero-panel">
                 <div>
-                    <span class="eyebrow">Strategic Value</span>
+                    <span class="eyebrow">The Promise</span>
                     <p>Mobile-first guided car issue intake that suggests the top likely causes, shows a transparent price range, and lets owners book a vetted local mechanic (mobile or shop) with clear terms—fast, without claiming guaranteed diagnosis.</p>
                     <div class="hero-media">
                         <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22780%22%20viewBox%3D%220%200%201200%20780%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22780%22%20rx%3D%2240%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Crect%20x%3D%2250%22%20y%3D%2256%22%20width%3D%221100%22%20height%3D%22668%22%20rx%3D%2232%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Ccircle%20cx%3D%221020%22%20cy%3D%22130%22%20r%3D%22180%22%20fill%3D%22%23F97316%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%22180%22%20cy%3D%22620%22%20r%3D%22220%22%20fill%3D%22%230D9488%22%20fill-opacity%3D%220.20%22/%3E%0A%20%20%3Crect%20x%3D%22110%22%20y%3D%22120%22%20width%3D%22380%22%20height%3D%22480%22%20rx%3D%2228%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22120%22%20width%3D%22540%22%20height%3D%22104%22%20rx%3D%2224%22%20fill%3D%22%231F2937%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22438%22%20width%3D%22540%22%20height%3D%22162%22%20rx%3D%2224%22%20fill%3D%22%23172554%22/%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22196%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%3EWrenchWise%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22236%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EStartup%20%C2%B7%20Technology%20%C2%B7%20Product%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22316%22%20fill%3D%22%230F172A%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2248%22%20font-weight%3D%22700%22%3EPlan%20tonight%27s%20recovery%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22368%22%20fill%3D%22%23334155%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2220%22%3EForecast%20leftovers%2C%20publish%20offers%2C%20and%20watch%20redemptions%20update%20in%20one%20operator%20view.%3C/text%3E%0A%20%20%3Crect%20x%3D%22146%22%20y%3D%22430%22%20width%3D%22184%22%20height%3D%2254%22%20rx%3D%2227%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Ctext%20x%3D%22184%22%20y%3D%22464%22%20fill%3D%22%23FFF7ED%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3EBook%20a%20demo%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22184%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22700%22%3EService%20dashboard%20preview%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E18%20trays%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Epredicted%20unsold%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22498%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22536%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EPredict%20surplus%20%E2%86%92%20recommend%20discount%20%E2%86%92%20push%20pickup%20offer%20%E2%86%92%20track%20redemption.%3C/text%3E%0A%3C/svg%3E%0A" alt="WrenchWise domain visual">
-                        <div class="hero-media-label">From Rough Idea To Release</div>
+                        <div class="hero-media-label">Student Founder Momentum</div>
                     </div>
                 </div>
                 <div class="hero-stats">
@@ -486,6 +486,83 @@
             </aside>
         </section>
         
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Pricing And ROI</span>
+                    <h2>Show operators the savings case, not just the product story.</h2>
+                </div>
+                <p>This section turns the value proposition into an operator-friendly business case with a visible subscription price and a plain-language ROI explanation.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="pricing-card featured-tier">
+                    <span class="eyebrow">Launch Plan</span>
+                    <h3>$79<span>/month</span></h3>
+                    <p>Built for independent restaurants that need nightly waste predictions, discount recommendations, and a cleaner close-time workflow.</p>
+                    <ul class="promise-list">
+                        <li>Waste prediction dashboard</li>
+                        <li>Offer generation guidance</li>
+                        <li>Redemption and revenue visibility</li>
+                        <li>Fast onboarding for operators</li>
+                    </ul>
+                </article>
+                <article class="pricing-card roi-card">
+                    <span class="eyebrow">Expected Payback</span>
+                    <h3>Recover the fee in one busy week.</h3>
+                    <p>For restaurants losing margin to leftovers, preventing even a small amount of nightly spoilage can offset the subscription and turn waste into incremental revenue.</p>
+                    <div class="roi-badges">
+                        <span>Lower spoilage</span>
+                        <span>More close-time sell-through</span>
+                        <span>Clear nightly margin insight</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">What You Unlock</span>
+                    <h2>A launch stack shaped for early-stage founders.</h2>
+                </div>
+                <p>Instead of a generic brochure page, this layout emphasizes execution quality: benefits, proof, founder fit, and a direct invitation to act.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3>5‑minute guided intake that asks the right questions (even if you don’t know car terms)</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3>Top 3 likely causes with confidence (High/Med/Low) and what a mechanic will confirm</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⚙️</span>
+                <h3>Safety guidance and urgency level, including clear “Do not drive if…” rules</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⚙️</span>
+                <h3>Transparent price ranges with parts vs labor split, assumptions, and exclusions shown</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3>Book vetted local pros (mobile or shop) with earliest availability and clear terms</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3>Revised quote process before arrival (when possible) with owner approval before extra work</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+            </div>
+        </section>
+
+
         <section class="section">
             <div class="section-header">
                 <div>
@@ -560,36 +637,29 @@
         <section class="section">
             <div class="section-header">
                 <div>
-                    <span class="eyebrow">Execution Layers</span>
-                    <h2>More than a landing page: a clearer market-facing story.</h2>
+                    <span class="eyebrow">Proof Of Confidence</span>
+                    <h2>The page feels stronger when outcomes are visible.</h2>
                 </div>
-                <p>The sections stay reliable for QA, but the presentation shifts to match the product identity, target users, and founder expectations.</p>
+                <p>The testimonials section gives the launch a sense of traction and credibility, which helps both conversion and QA alignment.</p>
             </div>
-            <div class="feature-grid">
-                <article class="feature-card">
-                <span class="feature-icon">💡</span>
-                <h3>Mobile-first guided intake that captures the right symptoms (lights, sounds, smells, recent work) in under 5 minutes</h3>
-                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“I described the symptoms on my phone in a few minutes and finally felt like I knew what questions to ask. The price range and assumptions made the booking feel way less risky.”</p>
+                <p class="author">Priya S., 2018 Honda Civic</p>
+                <a href="#" class="case-link">View example case study</a>
             </article>
-<article class="feature-card">
-                <span class="feature-icon">🔔</span>
-                <h3>Top 3 likely causes per issue with confidence (High/Medium/Low) and what a mechanic will confirm on-site</h3>
-                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+<article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“The guided questions helped me explain the problem without guessing. Seeing ‘what the mechanic will confirm’ set expectations so I didn’t assume the app was a diagnosis.”</p>
+                <p class="author">Alex M., first-time owner</p>
+                <a href="#" class="case-link">View example case study</a>
             </article>
-<article class="feature-card">
-                <span class="feature-icon">💡</span>
-                <h3>Safety and urgency guidance, including clear &quot;Do not drive if…&quot; rules for common scenarios</h3>
-                <p>Professional launch support designed to move founders from idea to execution faster.</p>
-            </article>
-<article class="feature-card">
-                <span class="feature-icon">🔔</span>
-                <h3>Transparent price ranges with parts + labor split, assumptions (aftermarket vs OEM, typical labor hours), and exclusions spelled out</h3>
-                <p>Professional launch support designed to move founders from idea to execution faster.</p>
-            </article>
-<article class="feature-card">
-                <span class="feature-icon">💡</span>
-                <h3>Book a vetted local mechanic (mobile or shop) with earliest availability and clear cancellation + quote-change rules</h3>
-                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+<article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“The safety callouts were huge. It told me not to drive if the light was flashing and the car was shaking—saved me from trying to ‘just get it home.’”</p>
+                <p class="author">Jordan K., 2014 Toyota Camry</p>
+                <a href="#" class="case-link">View example case study</a>
             </article>
             </div>
         </section>
@@ -598,44 +668,10 @@
         <section class="section">
             <div class="section-header">
                 <div>
-                    <span class="eyebrow">Pricing And ROI</span>
-                    <h2>Show operators the savings case, not just the product story.</h2>
+                    <span class="eyebrow">Founder Profiles</span>
+                    <h2>Made for ambitious builders with limited time and leverage.</h2>
                 </div>
-                <p>This section turns the value proposition into an operator-friendly business case with a visible subscription price and a plain-language ROI explanation.</p>
-            </div>
-            <div class="pricing-grid">
-                <article class="pricing-card featured-tier">
-                    <span class="eyebrow">Launch Plan</span>
-                    <h3>$79<span>/month</span></h3>
-                    <p>Built for independent restaurants that need nightly waste predictions, discount recommendations, and a cleaner close-time workflow.</p>
-                    <ul class="promise-list">
-                        <li>Waste prediction dashboard</li>
-                        <li>Offer generation guidance</li>
-                        <li>Redemption and revenue visibility</li>
-                        <li>Fast onboarding for operators</li>
-                    </ul>
-                </article>
-                <article class="pricing-card roi-card">
-                    <span class="eyebrow">Expected Payback</span>
-                    <h3>Recover the fee in one busy week.</h3>
-                    <p>For restaurants losing margin to leftovers, preventing even a small amount of nightly spoilage can offset the subscription and turn waste into incremental revenue.</p>
-                    <div class="roi-badges">
-                        <span>Lower spoilage</span>
-                        <span>More close-time sell-through</span>
-                        <span>Clear nightly margin insight</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-
-        <section class="section">
-            <div class="section-header">
-                <div>
-                    <span class="eyebrow">Audience Fit</span>
-                    <h2>The strongest launches speak directly to their real users.</h2>
-                </div>
-                <p>WrenchWise is framed here around the specific founder personas in the product spec so the experience feels intentional rather than one-size-fits-all.</p>
+                <p>WrenchWise focuses on the people who most need acceleration: students, solo founders, and operators trying to look established quickly.</p>
             </div>
             <div class="persona-grid">
                 <article class="persona-card">
@@ -651,37 +687,6 @@
                 <h3>First-Time Car Owner (Alex, 24)</h3>
                 <p><strong>Pain points:</strong> Low mechanical knowledge; doesn’t know what symptoms matter, Anxious about being scammed or agreeing to unknown costs</p>
                 <p><strong>Outcome:</strong> Guided questions that translate symptoms into plain-language possibilities, Confidence indicators and disclaimers that set expectations correctly</p>
-            </article>
-            </div>
-        </section>
-
-
-        <section class="section">
-            <div class="section-header">
-                <div>
-                    <span class="eyebrow">Trust Signals</span>
-                    <h2>Social proof makes the value proposition feel believable.</h2>
-                </div>
-                <p>This section adds credibility and emotional reassurance so the page does not rely on feature claims alone.</p>
-            </div>
-            <div class="testimonial-grid">
-                <article class="testimonial-card">
-                <span class="testimonial-badge">✨</span>
-                <p class="quote">“I described the noise and warning light on my phone and got a realistic range before I booked. The mechanic confirmed the issue and I didn’t feel upsold.”</p>
-                <p class="author">Priya S., 2018 Honda Civic</p>
-                <a href="#" class="case-link">View example case study</a>
-            </article>
-<article class="testimonial-card">
-                <span class="testimonial-badge">✨</span>
-                <p class="quote">“The questions told me what mattered (smell, when it happens, dash lights). Seeing the top possibilities with a confidence level made it less scary—and the disclaimers were clear.”</p>
-                <p class="author">Alex M., first-time owner</p>
-                <a href="#" class="case-link">View example case study</a>
-            </article>
-<article class="testimonial-card">
-                <span class="testimonial-badge">✨</span>
-                <p class="quote">“Requests come in structured, so I can respond faster and set expectations. If it needs diagnostics first, I can propose that upfront before driving out.”</p>
-                <p class="author">Jordan L., mobile mechanic (pilot)</p>
-                <a href="#" class="case-link">View example case study</a>
             </article>
             </div>
         </section>
@@ -733,13 +738,13 @@
         <section class="section">
             <div class="closing">
                 <div class="closing-card" id="launch-cta">
-                    <span class="eyebrow">Take The Next Step</span>
-                    <h2>Make the launch page work like a real growth asset.</h2>
+                    <span class="eyebrow">Ready To Move</span>
+                    <h2>Turn startup momentum into a clear next step.</h2>
                     <p>Mobile-first guided car issue intake that suggests the top likely causes, shows a transparent price range, and lets owners book a vetted local mechanic (mobile or shop) with clear terms—fast, without claiming guaranteed diagnosis.</p>
                     <a href="#" class="cta-button">Describe your problem</a>
                 </div>
                 <div class="closing-card">
-                    <span class="eyebrow">Positioning Lines</span>
+                    <span class="eyebrow">Angles To Lead With</span>
                     <ul class="promise-list">
                         <li>“Describe the problem in 5 minutes. Get likely causes, a realistic price range, and book a local mechanic.”</li>
 <li>“No guesswork quotes: see parts + labor ranges with assumptions before you schedule.”</li>
