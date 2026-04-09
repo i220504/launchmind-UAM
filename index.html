@@ -3,112 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Cofounder - Landing Page</title>
+    <title>AI Cofounder</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #007bff;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        h1 {
-            font-size: 2em;
-        }
-        h2 {
-            font-size: 1.5em;
-            margin-top: 10px;
-        }
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        .cta {
-            display: inline-block;
-            padding: 15px 25px;
-            color: white;
-            background: #28a745;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            text-align: center;
-            transition: background 0.3s ease;
-        }
-        .cta:hover {
-            background: #218838;
-        }
-        .features, .testimonials {
-            margin-top: 30px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 5px 0;
-            padding: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #007bff;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        @media (max-width: 600px) {
-            main {
-                padding: 10px;
-            }
-            .cta {
-                font-size: 1em;
-            }
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 2.5em; color: #333; }
+        h2 { font-size: 1.5em; color: #555; }
+        section { margin-bottom: 40px; }
+        .features, .testimonials { display: flex; flex-wrap: wrap; justify-content: space-around; }
+        .feature, .testimonial { box-sizing: border-box; width: 30%; min-width: 260px; padding: 20px; border: 1px solid #ddd; margin: 10px; border-radius: 8px; }
+        .cta-button { background: #28a745; color: white; padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 5px; cursor: pointer; }
+        footer { text-align: center; margin-top: 40px; }
+        @media (max-width: 600px) { .feature, .testimonial { width: 100%; } }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Transform Your Startup Idea into a Professional Launch Page within 24 Hours</h1>
-        <h2>Empower your vision with tailored messaging, engaging copy, and a stunning landing page - all crafted by AI.</h2>
-    </header>
-    <main>
+    <div class="container">
+        <header>
+            <h1>Transform Your Startup Ideas into Professional Assets in Just 24 Hours</h1>
+            <h2>Empowering student founders to create stunning landing pages, engaging launch copy, and investor-ready messaging all in one day.</h2>
+            <button class="cta-button">Start Your Journey Now</button>
+        </header>
         <section class="features">
-            <h2>Features</h2>
-            <ul>
-                <li>AI-Powered Idea Extraction: Automatically distill your startup concept into a succinct summary that impresses investors.</li>
-                <li>Dynamic Landing Page Generator: Create visually appealing and customizable landing pages that work seamlessly on any device.</li>
-                <li>Tailored Launch Copy Generation: Receive compelling launch copy tailored to resonate with your target audience and industry.</li>
-                <li>Investor Messaging Creator: Get clear, concise messaging designed to attract investor interest and showcase your value proposition.</li>
-                <li>User-Friendly Interface: Effortlessly navigate through the process of generating polished startup materials.</li>
-                <li>Feedback Loop Integration: Provide and receive feedback on generated content for continuous improvement.</li>
-            </ul>
+            <h2>Key Features</h2>
+            <div class="feature"><h3>AI-Powered Idea Extraction</h3><p>Extracts core elements of your startup idea for effective marketing.</p></div>
+            <div class="feature"><h3>Dynamic Landing Page Generator</h3><p>Create visually appealing and customizable landing pages that work on any device.</p></div>
+            <div class="feature"><h3>Tailored Launch Copy Generation</h3><p>Get engaging copy that speaks directly to your target audience.</p></div>
+            <div class="feature"><h3>Investor Messaging Creator</h3><p>Craft compelling messages to attract interest from potential investors.</p></div>
+            <div class="feature"><h3>User-Friendly Interface</h3><p>An intuitive platform guiding you through each step with ease.</p></div>
+            <div class="feature"><h3>Feedback Loop Integration</h3><p>Continuous improvement through user feedback on generated content.</p></div>
         </section>
         <section class="testimonials">
-            <h2>What Founders Are Saying</h2>
-            <ul>
-                <li><strong>Jamie R.:</strong> AI Cofounder helped me turn my rough startup concept into a polished landing page that truly captured my vision!</li>
-                <li><strong>Alex T.:</strong> The ability to generate professional copy and a landing page in a single day made all the difference in my funding pitch.</li>
-            </ul>
+            <h2>What Our Users Say</h2>
+            <div class="testimonial"><p><strong>Alex J., Student Entrepreneur</strong><br>"AI Cofounder helped me turn my vague idea into a beautiful, professional landing page overnight!"</p></div>
+            <div class="testimonial"><p><strong>Sarah L., Aspiring Founder</strong><br>"With tailored messaging from AI Cofounder, I was able to secure meetings with investors I never thought possible."</p></div>
         </section>
-        <a href="#" class="cta">Get Started on My Startup Page!</a>
-    </main>
-    <footer>
-        <p>&copy; 2023 AI Cofounder. All rights reserved.</p>
-    </footer>
+        <footer>
+            <p>&copy; 2023 AI Cofounder. All Rights Reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
