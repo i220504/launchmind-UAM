@@ -39,6 +39,10 @@
             gap: 28px;
             align-items: stretch;
         }
+        .hero-copy {
+            position: relative;
+            overflow: hidden;
+        }
         .hero-copy, .hero-panel, .section {
             background: var(--surface);
             backdrop-filter: blur(10px);
@@ -49,12 +53,57 @@
         .hero-copy {
             padding: 44px;
         }
+        .hero-copy::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
+            pointer-events: none;
+        }
         .hero-panel {
             padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             background: linear-gradient(180deg, rgba(21, 128, 61, 0.12), rgba(202, 138, 4, 0.10));
+            overflow: hidden;
+        }
+        .hero-media {
+            position: relative;
+            min-height: 240px;
+            margin-top: 18px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.08) contrast(1.02);
+        }
+        .hero-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(24, 32, 51, 0.00), rgba(24, 32, 51, 0.34));
+        }
+        .hero-media-label {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            z-index: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.82);
+            color: var(--ink);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
         .eyebrow {
             display: inline-block;
@@ -220,6 +269,18 @@
             background: var(--surface-strong);
             border: 1px solid var(--line);
         }
+        .feature-icon, .persona-icon, .testimonial-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(243, 251, 245, 0.9));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+            font-size: 1.4rem;
+        }
         .feature-card h3, .persona-card h3 {
             margin: 0 0 10px;
             font-size: 1.2rem;
@@ -330,17 +391,21 @@
         <section class="hero">
             <div class="hero-copy">
                 <span class="eyebrow">Launch-Ready In 24 Hours</span>
-                <h1>Reduce Food Waste and Boost Your Restaurant&#x27;s Revenue with PlatePilot</h1>
-                <p class="lede">Our intelligent predictions and automated discounts help small restaurants transform end-of-day routines into profit-making opportunities.</p>
+                <h1>Reduce Food Waste and Increase Revenue with PlatePilot</h1>
+                <p class="lede">PlatePilot helps small restaurants minimize food waste by accurately predicting end-of-day waste and generating enticing discount offers for nearby customers, thus maximizing their revenue and enhancing sustainability.</p>
                 <div class="cta-row">
-                    <a href="#launch-cta" class="cta-button">Sign Up for Our Beta Program</a>
+                    <a href="#launch-cta" class="cta-button">Sign Up for a Free Trial Today!</a>
                     <span class="cta-note">Built for student founders and non-technical builders who need polished launch assets fast.</span>
                 </div>
             </div>
             <aside class="hero-panel">
                 <div>
                     <span class="eyebrow">Why It Matters</span>
-                    <p>PlatePilot helps small restaurants reduce food waste and increase revenue by predicting end-of-day food waste and generating automatic discounted offers for nearby customers.</p>
+                    <p>PlatePilot helps small restaurants minimize food waste by accurately predicting end-of-day waste and generating enticing discount offers for nearby customers, thus maximizing their revenue and enhancing sustainability.</p>
+                    <div class="hero-media">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80&sig=restaurant-food-kitchen" alt="PlatePilot domain visual">
+                        <div class="hero-media-label">Launch-Ready In 24 Hours</div>
+                    </div>
                 </div>
                 <div class="hero-stats">
                     
@@ -360,7 +425,7 @@
                     </div>
 
                     <div class="stat">
-                        <strong>Small Restaurant Owner</strong>
+                        <strong>Restaurant Manager</strong>
                         <span>Designed around real user pain points and fast execution</span>
                     </div>
                 </div>
@@ -377,20 +442,29 @@
             </div>
             <div class="feature-grid">
                 <article class="feature-card">
-                <h3>Food Waste Prediction</h3>
-                <p>Displays the predicted amount of food waste for the day based on historical sales data.</p>
+                <span class="feature-icon">📉</span>
+                <h3>Waste Prediction Engine</h3>
+                <p>80% accuracy in predicting end-of-day food waste.</p>
             </article>
 <article class="feature-card">
-                <h3>Automated Discount Offers</h3>
-                <p>Generates and sends discounts for leftover food to nearby customers automatically.</p>
+                <span class="feature-icon">🏷️</span>
+                <h3>Automated Discount Offer Generator</h3>
+                <p>Generates attractive offers based on predictions.</p>
             </article>
 <article class="feature-card">
-                <h3>Integration with POS Systems</h3>
-                <p>Integrates seamlessly with popular POS systems used by small restaurants to gather data.</p>
+                <span class="feature-icon">📊</span>
+                <h3>Real-Time Reporting Dashboard</h3>
+                <p>Track waste, offers, and redemption rates effortlessly.</p>
             </article>
 <article class="feature-card">
-                <h3>Mobile-Responsive Dashboard</h3>
-                <p>User-friendly interface accessible from mobile devices to manage offers on-the-go.</p>
+                <span class="feature-icon">📍</span>
+                <h3>POS Integration Module</h3>
+                <p>Seamless integration with existing POS systems.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⏰</span>
+                <h3>Mobile &amp; Desktop Responsiveness</h3>
+                <p>Enjoy a seamless experience on all devices.</p>
             </article>
             </div>
         </section>
@@ -474,12 +548,16 @@
             </div>
             <div class="testimonial-grid">
                 <article class="testimonial-card">
-                <p class="quote">“PlatePilot has revolutionized how we manage our unsold food. Our waste has reduced significantly, and our customers love the discounts!”</p>
-                <p class="author">John Doe, Café Owner</p>
+                <span class="testimonial-badge">⭐</span>
+                <p class="quote">“PlatePilot transformed the way we manage our food waste. The automated offers have not only reduced our losses but brought in new customers!”</p>
+                <p class="author">Sarah, Restaurant Manager</p>
+                <a href="#" class="case-link">View example case study</a>
             </article>
 <article class="testimonial-card">
-                <p class="quote">“The automated offers generated by PlatePilot have brought in more customers during slow hours. Highly recommend!”</p>
-                <p class="author">Jane Smith, Restaurant Manager</p>
+                <span class="testimonial-badge">⭐</span>
+                <p class="quote">“I love finding great meals at discounted prices with PlatePilot. It&#x27;s a win-win for me and the restaurants!”</p>
+                <p class="author">Mike, Local Food Enthusiast</p>
+                <a href="#" class="case-link">View example case study</a>
             </article>
             </div>
         </section>
@@ -496,9 +574,17 @@
             <div class="persona-grid">
                 <article class="persona-card">
                 <span class="eyebrow">Built For</span>
-                <h3>Small Restaurant Owner</h3>
-                <p><strong>Pain points:</strong> High levels of food waste at the end of the day, Difficulty in managing discount offers effectively</p>
-                <p><strong>Outcome:</strong> Reduce food waste and loss, Increase customer engagement and sales during off-peak hours</p>
+                <span class="persona-icon">👨‍🍳</span>
+                <h3>Restaurant Manager</h3>
+                <p><strong>Pain points:</strong> Understanding how much food goes to waste daily., Managing pricing and discounts for unsold food effectively.</p>
+                <p><strong>Outcome:</strong> Reduce overall food waste and associated costs., Increase sales through timely discounts.</p>
+            </article>
+<article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">🥡</span>
+                <h3>Local Food Enthusiast</h3>
+                <p><strong>Pain points:</strong> Finding affordable meal options in the neighborhood., Wanting to support local businesses but limited by budget.</p>
+                <p><strong>Outcome:</strong> Access to fresh food at discounted prices., Engagement with community-driven sustainability efforts.</p>
             </article>
             </div>
         </section>
@@ -552,15 +638,15 @@
                 <div class="closing-card" id="launch-cta">
                     <span class="eyebrow">Launch Faster</span>
                     <h2>Go from messy idea to confident launch story.</h2>
-                    <p>PlatePilot helps small restaurants reduce food waste and increase revenue by predicting end-of-day food waste and generating automatic discounted offers for nearby customers.</p>
-                    <a href="#" class="cta-button">Sign Up for Our Beta Program</a>
+                    <p>PlatePilot helps small restaurants minimize food waste by accurately predicting end-of-day waste and generating enticing discount offers for nearby customers, thus maximizing their revenue and enhancing sustainability.</p>
+                    <a href="#" class="cta-button">Sign Up for a Free Trial Today!</a>
                 </div>
                 <div class="closing-card">
                     <span class="eyebrow">Messaging Hooks</span>
                     <ul class="promise-list">
-                        <li>Join the movement to cut food waste in your restaurant by up to 50% with PlatePilot&#x27;s intelligent predictions.</li>
-<li>Unlock the power of perfectly timed, automated discounts that bring customers through your doors just when you need them.</li>
-<li>Transform your restaurant’s end-of-day routine into an opportunity for profit instead of loss.</li>
+                        <li>Sign up today and transform waste into profit with PlatePilot&#x27;s smart offers!</li>
+<li>Join the food sustainability movement: Reduce waste and see new customers flock to your restaurant!</li>
+<li>Get the last plate at half price! Discover fresh deals near you with PlatePilot.</li>
                     </ul>
                 </div>
             </div>
