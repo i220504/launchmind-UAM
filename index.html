@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchKit Concierge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:wght@600;700&display=swap');
+        :root {
+            --bg: #f5efe4;
+            --surface: rgba(255, 252, 246, 0.86);
+            --surface-strong: #fffaf0;
+            --ink: #1f1e1a;
+            --muted: #5d564b;
+            --accent: #0d9488;
+            --accent-2: #f97316;
+            --line: rgba(31, 30, 26, 0.08);
+            --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(13, 148, 136, 0.18), transparent 30%),
+                linear-gradient(180deg, #fcf8f1 0%, #f2ecdf 100%);
+            color: var(--ink);
+        }
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+        .hero-copy {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-copy, .hero-panel, .section {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+        .hero-copy {
+            padding: 44px;
+        }
+        .hero-copy::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.10));
+            overflow: hidden;
+        }
+        .hero-media {
+            position: relative;
+            min-height: 240px;
+            margin-top: 18px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.08) contrast(1.02);
+        }
+        .hero-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(24, 32, 51, 0.00), rgba(24, 32, 51, 0.34));
+        }
+        .hero-media-label {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            z-index: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.82);
+            color: var(--ink);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+        .lede {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 58ch;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fffaf3;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 34px rgba(13, 148, 136, 0.22);
+        }
+        .cta-note {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid rgba(31, 30, 26, 0.06);
+        }
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .hero-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .section {
+            margin-top: 28px;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+        .section-header h2 {
+            margin: 6px 0 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+        .section-header p {
+            max-width: 52ch;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .persona-grid, .testimonial-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .dashboard-shell {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .dashboard-card, .sidebar-card, .faq-item, .newsletter-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .dashboard-visual {
+            margin-top: 18px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.5);
+        }
+        .dashboard-visual img {
+            width: 100%;
+            display: block;
+        }
+        .metric {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255, 250, 240, 0.8);
+        }
+        .metric strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .dashboard-flow {
+            margin-top: 18px;
+            display: grid;
+            gap: 12px;
+        }
+        .flow-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.48);
+            border: 1px solid var(--line);
+        }
+        .flow-step span {
+            min-width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+        }
+        .feature-card, .persona-card, .testimonial-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .feature-icon, .persona-icon, .testimonial-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255, 250, 240, 0.8));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+            font-size: 1.4rem;
+        }
+        .feature-card h3, .persona-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card p + p {
+            margin-top: 10px;
+        }
+        .quote {
+            font-size: 1.08rem;
+        }
+        .author {
+            margin-top: 14px !important;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink) !important;
+            font-weight: 700;
+        }
+        .case-link {
+            margin-top: 10px !important;
+            display: inline-block;
+            color: var(--accent);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .promise-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+        .closing {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .closing-card {
+            padding: 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.12));
+            border: 1px solid var(--line);
+        }
+        .closing-card h2 {
+            margin: 0 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.03em;
+        }
+        .closing-card p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+        .newsletter-card form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .newsletter-card input {
+            flex: 1 1 220px;
+            min-height: 52px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.82);
+            font: inherit;
+        }
+        .newsletter-card button {
+            min-height: 52px;
+            padding: 0 20px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .pricing-card {
+            padding: 24px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .pricing-card h3 {
+            margin: 8px 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            letter-spacing: -0.03em;
+        }
+        .pricing-card h3 span {
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            color: var(--muted);
+            margin-left: 4px;
+        }
+        .featured-tier {
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255, 250, 240, 0.8));
+        }
+        .roi-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .roi-badges span {
+            display: inline-flex;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid var(--line);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+        @media (max-width: 900px) {
+            .hero, .closing, .feature-grid, .persona-grid, .testimonial-grid, .dashboard-shell, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-metrics {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-panel, .section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">From Rough Idea To Release</span>
+                <h1>Turn your startup idea into a publishable landing page, launch copy, and an investor-ready one‑pager—in one guided session.</h1>
+                <p class="lede">LaunchKit Concierge uses a single Messaging Map to keep your positioning consistent across your site, Product Hunt, X/LinkedIn posts, and pitch narrative. Get a first preview in under 2 minutes, then export HTML+CSS, Markdown, and a PDF one‑pager.</p>
+                <div class="cta-row">
+                    <a href="#launch-cta" class="cta-button">Create My Launch Kit</a>
+                    <span class="cta-note">A stable launch page, sharper positioning, and a more convincing story for users and investors.</span>
+                </div>
+            </div>
+            <aside class="hero-panel">
+                <div>
+                    <span class="eyebrow">Strategic Value</span>
+                    <p>An AI concierge for student founders that turns one idea intake into a consistent landing page, launch copy set, and investor-ready narrative—exportable and publishable in a single guided session.</p>
+                    <div class="hero-media">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22780%22%20viewBox%3D%220%200%201200%20780%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22780%22%20rx%3D%2240%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Crect%20x%3D%2250%22%20y%3D%2256%22%20width%3D%221100%22%20height%3D%22668%22%20rx%3D%2232%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Ccircle%20cx%3D%221020%22%20cy%3D%22130%22%20r%3D%22180%22%20fill%3D%22%23F97316%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%22180%22%20cy%3D%22620%22%20r%3D%22220%22%20fill%3D%22%230D9488%22%20fill-opacity%3D%220.20%22/%3E%0A%20%20%3Crect%20x%3D%22110%22%20y%3D%22120%22%20width%3D%22380%22%20height%3D%22480%22%20rx%3D%2228%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22120%22%20width%3D%22540%22%20height%3D%22104%22%20rx%3D%2224%22%20fill%3D%22%231F2937%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22438%22%20width%3D%22540%22%20height%3D%22162%22%20rx%3D%2224%22%20fill%3D%22%23172554%22/%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22196%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%3ELaunchKit%20Concierge%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22236%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EEducation%20%C2%B7%20Students%20%C2%B7%20Learning%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22316%22%20fill%3D%22%230F172A%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2248%22%20font-weight%3D%22700%22%3EPlan%20tonight%27s%20recovery%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22368%22%20fill%3D%22%23334155%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2220%22%3EForecast%20leftovers%2C%20publish%20offers%2C%20and%20watch%20redemptions%20update%20in%20one%20operator%20view.%3C/text%3E%0A%20%20%3Crect%20x%3D%22146%22%20y%3D%22430%22%20width%3D%22184%22%20height%3D%2254%22%20rx%3D%2227%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Ctext%20x%3D%22184%22%20y%3D%22464%22%20fill%3D%22%23FFF7ED%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3EBook%20a%20demo%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22184%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22700%22%3EService%20dashboard%20preview%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E18%20trays%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Epredicted%20unsold%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22498%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22536%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EPredict%20surplus%20%E2%86%92%20recommend%20discount%20%E2%86%92%20push%20pickup%20offer%20%E2%86%92%20track%20redemption.%3C/text%3E%0A%3C/svg%3E%0A" alt="LaunchKit Concierge domain visual">
+                        <div class="hero-media-label">From Rough Idea To Release</div>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    
+                    <div class="stat">
+                        <strong>24h</strong>
+                        <span>From rough idea to launch-ready presence</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>No Code</strong>
+                        <span>Professional output without building everything yourself</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Investor-Ready</strong>
+                        <span>Sharper messaging for traction, credibility, and outreach</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>First-time student founder (solo builder)</strong>
+                        <span>Designed around real user pain points and fast execution</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Execution Layers</span>
+                    <h2>More than a landing page: a clearer market-facing story.</h2>
+                </div>
+                <p>The sections stay reliable for QA, but the presentation shifts to match the product identity, target users, and founder expectations.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <span class="feature-icon">🧠</span>
+                <h3>One guided intake produces a canonical Messaging Map (ICP, JTBD, alternatives, wedge, proof, CTA) used everywhere—no contradictions.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🗂️</span>
+                <h3>Generate a clean, responsive landing page from simple templates with light customization (logo, colors, font, optional hero image).</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">📚</span>
+                <h3>Get a full launch copy kit (X thread, LinkedIn post, Product Hunt copy, early-adopter email, outreach messages) aligned to your CTA.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⏱️</span>
+                <h3>Create an investor-ready one-pager (problem, solution, why now, model, differentiation, traction placeholders, ask) that matches your site.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">🗂️</span>
+                <h3>Consistency checker flags mismatched ICP/problem/CTA/pricing across assets and lets you regenerate sections safely.</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⏱️</span>
+                <h3>Export everything</h3>
+                <p>HTML+CSS zip for the site, Markdown/Doc for posts, and a PDF one-pager for submissions.</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Audience Fit</span>
+                    <h2>The strongest launches speak directly to their real users.</h2>
+                </div>
+                <p>LaunchKit Concierge is framed here around the specific founder personas in the product spec so the experience feels intentional rather than one-size-fits-all.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">📝</span>
+                <h3>First-time student founder (solo builder)</h3>
+                <p><strong>Pain points:</strong> Has an idea but struggles to articulate ICP, problem, and differentiation clearly, Spends days writing and rewriting landing page copy that still feels generic</p>
+                <p><strong>Outcome:</strong> A coherent messaging system (ICP, JTBD, alternatives, wedge, proof, CTA) without contradictions, A landing page that can be published today with minor edits</p>
+            </article>
+<article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">📝</span>
+                <h3>Student founder preparing for a demo day / pitch competition</h3>
+                <p><strong>Pain points:</strong> Pitch narrative is scattered across slides, docs, and notes, Hard to explain traction/proof and why now in one page</p>
+                <p><strong>Outcome:</strong> Investor-ready one-pager that matches the landing page positioning, Clear differentiation and wedge framed against alternatives</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Product Demo</span>
+                    <h2>See the dashboard that turns waste into recoverable revenue.</h2>
+                </div>
+                <p>This visual walkthrough mirrors the dashboard requirement in the product spec by showing prediction metrics, recommended offers, and the action flow from waste forecast to published pickup deal.</p>
+            </div>
+            <div class="dashboard-shell">
+                <div class="dashboard-card">
+                    <span class="eyebrow">Dashboard Snapshot</span>
+                    <h3>Tonight’s recovery dashboard</h3>
+                    <div class="dashboard-visual">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22760%22%20viewBox%3D%220%200%201200%20760%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22760%22%20rx%3D%2240%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%221116%22%20height%3D%22676%22%20rx%3D%2232%22%20fill%3D%22%23ffffff%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%2296%22%20width%3D%221012%22%20height%3D%2272%22%20rx%3D%2222%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22444%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22794%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%231D4ED8%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22438%22%20width%3D%22666%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Crect%20x%3D%22796%22%20y%3D%22438%22%20width%3D%22310%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22140%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2224%22%20font-weight%3D%22700%22%3ELaunchKit%20Concierge%20demo%20section%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EWaste%20risk%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E34%25%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20uplift%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E2.1x%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ERecovered%20revenue%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22500%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ELive%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22544%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%3EForecast%20leftovers%2C%20set%20discount%20rules%2C%20and%20monitor%20claim%20activity%20in%20one%20place.%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22500%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOperator%20outcomes%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22544%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ELess%20spoilage%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22578%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EHigher%20close-time%20sell-through%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22612%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EMore%20predictable%20nightly%20margins%3C/text%3E%0A%3C/svg%3E%0A" alt="LaunchKit Concierge dashboard demo visual">
+                    </div>
+                    <div class="dashboard-metrics">
+                        
+                        <div class="metric">
+                            <strong>18 trays</strong>
+                            <span>Predicted unsold inventory</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>34%</strong>
+                            <span>Average waste reduction opportunity</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>$420</strong>
+                            <span>Recovered revenue with LaunchKit Concierge offers</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flow">
+                        <div class="flow-step">
+                            <span>1</span>
+                            <div>
+                                <strong>Predict unsold inventory</strong>
+                                <p>PlatePilot identifies likely leftovers before closing using recent POS and inventory signals.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>2</span>
+                            <div>
+                                <strong>Generate a localized offer</strong>
+                                <p>The platform recommends discount depth, pickup timing, and the best nearby customer segment.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>3</span>
+                            <div>
+                                <strong>Push offers and track redemptions</strong>
+                                <p>Managers can publish the deal, monitor conversions, and compare recovered revenue vs predicted waste.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <span class="eyebrow">Manager View</span>
+                    <h3>What the team sees before close</h3>
+                    <p>The dashboard surfaces waste risk, likely sell-through, active discounts, and the fastest actions to save inventory without manually recalculating offers.</p>
+                    <ul class="promise-list">
+                        <li>Predicted unsold meals by category</li>
+                        <li>Recommended discount window for fast conversion</li>
+                        <li>Offer performance and recovered revenue tracking</li>
+                        <li>Operational visibility for owners and shift managers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Pricing And ROI</span>
+                    <h2>Show operators the savings case, not just the product story.</h2>
+                </div>
+                <p>This section turns the value proposition into an operator-friendly business case with a visible subscription price and a plain-language ROI explanation.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="pricing-card featured-tier">
+                    <span class="eyebrow">Launch Plan</span>
+                    <h3>$79<span>/month</span></h3>
+                    <p>Built for independent restaurants that need nightly waste predictions, discount recommendations, and a cleaner close-time workflow.</p>
+                    <ul class="promise-list">
+                        <li>Waste prediction dashboard</li>
+                        <li>Offer generation guidance</li>
+                        <li>Redemption and revenue visibility</li>
+                        <li>Fast onboarding for operators</li>
+                    </ul>
+                </article>
+                <article class="pricing-card roi-card">
+                    <span class="eyebrow">Expected Payback</span>
+                    <h3>Recover the fee in one busy week.</h3>
+                    <p>For restaurants losing margin to leftovers, preventing even a small amount of nightly spoilage can offset the subscription and turn waste into incremental revenue.</p>
+                    <div class="roi-badges">
+                        <span>Lower spoilage</span>
+                        <span>More close-time sell-through</span>
+                        <span>Clear nightly margin insight</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Trust Signals</span>
+                    <h2>Social proof makes the value proposition feel believable.</h2>
+                </div>
+                <p>This section adds credibility and emotional reassurance so the page does not rely on feature claims alone.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <span class="testimonial-badge">🎯</span>
+                <p class="quote">“I went from a messy idea doc to a landing page and a coherent positioning in one sitting. The Messaging Map made it obvious what to say—and what to cut.”</p>
+                <p class="author">Maya K., CS ’26 (solo founder)</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+<article class="testimonial-card">
+                <span class="testimonial-badge">🎯</span>
+                <p class="quote">“The one-pager finally matched our landing page and outreach. We iterated the wedge and CTA without rewriting everything from scratch.”</p>
+                <p class="author">Jordan L., Demo Day team lead</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Lead Capture</span>
+                    <h2>Book a demo or join the launch list.</h2>
+                </div>
+                <p>LaunchKit Concierge needs both a demo signup CTA and a newsletter-style lead capture path so operators can either book a walkthrough immediately or stay informed until launch.</p>
+            </div>
+            <div class="newsletter-card">
+                <span class="eyebrow">Newsletter Signup</span>
+                <h3>See how restaurants reduce waste before closing time.</h3>
+                <form>
+                    <input type="email" placeholder="Enter your restaurant email">
+                    <button type="submit">Join the waitlist</button>
+                </form>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Frequently Asked Questions</span>
+                    <h2>Answer the questions restaurant teams ask before adopting new tools.</h2>
+                </div>
+                <p>The FAQ section addresses the operational objections most likely to slow down signups, which makes the launch page more conversion-ready and more aligned with the spec.</p>
+            </div>
+            <div class="faq-list">
+                <article class="faq-item">
+                    <h3>How does LaunchKit Concierge predict end-of-day waste?</h3>
+                    <p>It combines recent sales velocity, category-level inventory trends, and closing-time behavior to estimate what will likely remain unsold before service ends.</p>
+                </article>
+<article class="faq-item">
+                    <h3>Do restaurant teams need to change their POS workflow?</h3>
+                    <p>No. The platform is positioned as a lightweight layer that reads existing sales signals, recommends offers quickly, and helps teams act before inventory becomes waste.</p>
+                </article>
+<article class="faq-item">
+                    <h3>What do customers experience?</h3>
+                    <p>Nearby diners receive clear, time-sensitive offers for fresh discounted meals, making the value obvious while helping restaurants recover revenue that would otherwise be lost.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="closing">
+                <div class="closing-card" id="launch-cta">
+                    <span class="eyebrow">Take The Next Step</span>
+                    <h2>Make the launch page work like a real growth asset.</h2>
+                    <p>An AI concierge for student founders that turns one idea intake into a consistent landing page, launch copy set, and investor-ready narrative—exportable and publishable in a single guided session.</p>
+                    <a href="#" class="cta-button">Create My Launch Kit</a>
+                </div>
+                <div class="closing-card">
+                    <span class="eyebrow">Positioning Lines</span>
+                    <ul class="promise-list">
+                        <li>From idea to publishable landing page + launch posts + investor one-pager in one guided session.</li>
+<li>A single Messaging Map that keeps your landing page, launch copy, and investor narrative consistent.</li>
+<li>Built for student founders: B2B SaaS, consumer apps, and campus marketplaces—templates that match your reality.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
