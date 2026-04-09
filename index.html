@@ -12,19 +12,34 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
         .container {
-            max-width: 800px;
+            width: 90%;
+            max-width: 1200px;
             margin: auto;
             padding: 20px;
-            background: white;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .feature {
+            flex: 1 1 30%;
+            background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
         }
         .cta-button {
             background-color: #4CAF50;
@@ -32,53 +47,34 @@
             padding: 15px 25px;
             border: none;
             border-radius: 5px;
+            font-size: 1.2em;
             cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-        }
-        .features {
-            margin: 20px 0;
-        }
-        .feature {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #e0f7fa;
-            border-left: 5px solid #00796b;
-        }
-        footer {
-            text-align: center;
-            font-size: 0.9em;
             margin-top: 20px;
-            padding: 10px 0;
-            background-color: #eee;
         }
-        @media (max-width: 600px) {
-            .cta-button {
-                width: 100%;
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+            }
+            .feature {
+                flex: 1 1 100%;
+                margin: 10px 0;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>LaunchMate</h1>
-        <p>Your AI Cofounder</p>
-    </header>
     <div class="container">
-        <h2>Transform your rough startup ideas into professional landing pages, launch copy, and investor messaging in under 24 hours.</h2>
-        <a href="#" class="cta-button">Get Started Now</a>
+        <h1>Transform Your Startup Idea into Reality in Just One Day!</h1>
+        <h2>LaunchMate is your AI cofounder, turning rough concepts into professional landing pages and compelling messaging.</h2>
+        <button class="cta-button">Get Started for Free</button>
         <div class="features">
-            <h3>Features</h3>
-            <div class="feature">AI-Powered Idea Generation: Refine and structure your startup ideas into clear proposals.</div>
-            <div class="feature">Automated Landing Page Creator: Visually appealing landing pages generated from your inputs.</div>
-            <div class="feature">Tailored Marketing Copy Generator: Customized copy highlighting your startup's unique value.</div>
-            <div class="feature">Investor Messaging Tool: Persuasive messaging designed for investor outreach.</div>
-            <div class="feature">User-friendly Interface: Navigate easily and generate outputs without technical skills.</div>
-            <div class="feature">24-Hour Turnaround Guarantee: Meet the needs of fast-paced startups.</div>
+            <div class="feature"><h3>AI-Powered Idea Generation</h3><p>Refine and structure your startup ideas effortlessly.</p></div>
+            <div class="feature"><h3>Automated Landing Page Creator</h3><p>Create visually appealing landing pages from user input.</p></div>
+            <div class="feature"><h3>Tailored Marketing Copy Generator</h3><p>Generate customized copy highlighting your startup's unique value.</p></div>
+            <div class="feature"><h3>Investor Messaging Tool</h3><p>Develop persuasive messages designed for investor outreach.</p></div>
+            <div class="feature"><h3>User-friendly Interface</h3><p>Navigate easily without technical expertise.</p></div>
+            <div class="feature"><h3>24-Hour Turnaround Guarantee</h3><p>Get everything completed within a day.</p></div>
         </div>
-        <footer>
-            <p>&copy; 2023 LaunchMate. All rights reserved.</p>
-        </footer>
     </div>
 </body>
 </html>
