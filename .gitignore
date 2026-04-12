@@ -1,0 +1,13 @@
+.env
+.venv/
+.history/
+__pycache__/
+.pytest_cache/
+.DS_Store
+*.pyc
+*.pyo
+*.pyd
+outputs/logs/*.jsonl
+outputs/logs/*.log
+outputs/artifacts/*.json
+outputs/artifacts/*.html
