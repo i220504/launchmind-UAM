@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchGen AI - Transform Your Startup Idea in 24 Hours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50; /* A fresh green for innovation */
+            --secondary-color: #2E7D32; /* Darker green */
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --white: #fff;
+            --border-color: #eee;
+            --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--white);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700; /* Bolder for headings */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--white), var(--light-bg));
+            padding: 80px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section:nth-of-type(odd) {
+            background-color: var(--light-bg);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .section-subtext {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .feature-card svg {
+            color: var(--primary-color);
+            font-size: 3em;
+            margin-bottom: 15px;
+            width: 48px;
+            height: 48px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Styles for "How It Works" / Demo Section */
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+
+        .step-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-card .step-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .step-card .step-icon svg {
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            stroke: currentColor; /* Ensure stroke is applied for icon color */
+        }
+
+        .step-card h3 {
+            font-size: 1.6em;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            color: #555;
+        }
+
+        .product-mockup {
+            margin-top: 80px;
+            background-color: var(--light-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-mockup svg {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .mockup-caption {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: left;
+            font-style: italic;
+        }
+
+        .testimonial-card p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .testimonial-card .author {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-style: normal;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.highlight {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.02);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .price {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .pricing-card .price span {
+            font-size: 0.5em;
+            font-weight: normal;
+            color: #888;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 10px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-card ul li::before {
+            content: '✓';
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .pricing-card .btn {
+            margin-top: 20px;
+            width: fit-content;
+            align-self: center;
+        }
+
+        .contact-form-wrapper {
+            max-width: 700px;
+            margin: 50px auto 0;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            text-align: left;
+        }
+
+        .contact-form-wrapper label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .contact-form-wrapper input[type="text"],
+        .contact-form-wrapper input[type="email"],
+        .contact-form-wrapper textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form-wrapper input[type="text"]:focus,
+        .contact-form-wrapper input[type="email"]:focus,
+        .contact-form-wrapper textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .contact-form-wrapper textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .section {
+                padding: 60px 10px;
+            }
+
+            .features-grid, .testimonials-grid, .pricing-grid, .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card, .testimonial-card, .pricing-card, .step-card {
+                padding: 25px;
+            }
+
+            .contact-form-wrapper {
+                padding: 25px;
+            }
+
+            .section-subtext {
+                font-size: 1em;
+                margin-bottom: 40px;
+            }
+            .product-mockup {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">LaunchGen AI</a>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Launch Your Startup Idea in 24 Hours.</h1>
+                <p>Transform your vision into a professional landing page, compelling launch copy, and investor-ready messaging – all powered by AI, no design or writing skills required.</p>
+                <a href="#contact" class="btn">Launch My Idea Now</a>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2>Unleash Your Startup Potential</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        <h3>Idea-to-Landing Page Generator</h3>
+                        <p>Converts your startup ideas into fully designed, responsive landing pages with compelling copy in minutes. Get online faster than ever.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                        <h3>Launch Copy Creator</h3>
+                        <p>Generate persuasive launch copy optimized for readability and conversion across various platforms. Perfect your messaging instantly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        <h3>Investor Deck Formatter</h3>
+                        <p>Craft a professional investor deck with key slides ready for PDF export, tailored to impress potential investors and secure funding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="section">
+            <div class="container">
+                <h2>Your Idea, Instantly Visualized.</h2>
+                <p class="section-subtext">See how LaunchGen AI transforms your concept into market-ready assets in three simple steps.</p>
+                <div class="workflow-steps">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l-3.75 3.75M11.25 11.25l3.75-3.75M11.25 11.25l-3.75-3.75m3.75 3.75L7.5 7.5M12 21a9 9 0 01-9-9c0-5.52 4.48-10 10-10a9 9 0 019 9c0 5.52-4.48 10-10 10zM12 3a9 9 0 00-9 9m9-9a9 9 0 019 9m-9-9A9 9 0 003 12m9 9a9 9 0 009-9"></path></svg>
+                        </div>
+                        <h3>1. Input Your Idea</h3>
+                        <p>Simply describe your startup concept in a few sentences. Our AI quickly grasps your vision.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25V19.5a2.25 2.25 0 002.25 2.25h.5a2.25 2.25 0 002.25-2.25v-2.25m-4.5 0l-.75-.75L9 14.25m-4.5 0L6 15.75m-4.5 0l-.75-.75L2 14.25m-.5-1.5l.75-.75L2.5 11.25m-.5-1.5l.75-.75L2.5 8.25m15-1.5l.75-.75L18.5 4.75m-4.5 0l-.75-.75L14 3.75m15-1.5l.75-.75L18.5 1.75"></path></svg>
+                        </div>
+                        <h3>2. AI Generates Assets</h3>
+                        <p>Our powerful AI instantly crafts your landing page, launch copy, and investor deck.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3>3. Refine & Launch</h3>
+                        <p>Make quick edits, then export and launch your professional startup materials in under 24 hours.</p>
+                    </div>
+                </div>
+                <div class="product-mockup">
+                    <svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="500" height="300" rx="15" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
+                        <rect x="50" y="50" width="500" height="30" rx="0" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+                        <circle cx="65" cy="65" r="5" fill="#FF605C"/>
+                        <circle cx="80" cy="65" r="5" fill="#FFBD44"/>
+                        <circle cx="95" cy="65" r="5" fill="#00CA4E"/>
+                        <rect x="120" y="60" width="300" height="15" rx="7.5" fill="#E0E0E0"/>
+                        <text x="270" y="70" font-family="Inter, sans-serif" font-size="10" fill="#888" text-anchor="middle">Your Awesome Landing Page</text>
+
+                        <rect x="80" y="100" width="440" height="40" rx="5" fill="#E0E0E0"/>
+                        <rect x="80" y="150" width="300" height="20" rx="5" fill="#F0F0F0"/>
+                        <rect x="80" y="180" width="200" height="20" rx="5" fill="#F0F0F0"/>
+                        <rect x="80" y="210" width="150" height="30" rx="15" fill="var(--primary-color)"/>
+                        <text x="155" y="230" font-family="Inter, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Call to Action</text>
+
+                        <rect x="80" y="260" width="120" height="20" rx="5" fill="#E0E0E0"/>
+                        <rect x="80" y="290" width="440" height="15" rx="5" fill="#F0F0F0"/>
+                        <rect x="80" y="310" width="440" height="15" rx="5" fill="#F0F0F0"/>
+                    </svg>
+                    <p class="mockup-caption">A glimpse of your AI-generated landing page, ready for launch.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="section">
+            <div class="container">
+                <h2>What Our Founders Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"LaunchGen AI saved me weeks! Had a fully functional landing page and pitch deck within a day. Game-changer for student founders."</p>
+                        <p class="author">- Alex P., Student Founder</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"As an early-stage entrepreneur, time is critical. LaunchGen AI delivered polished materials that helped us secure our first few leads immediately."</p>
+                        <p class="author">- Sarah L., Early-Stage Entrepreneur</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"I could finally focus on my product, not the marketing. The AI-generated copy was surprisingly effective and tailored perfectly."</p>
+                        <p class="author">- Mark J., Tech Innovator</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="section">
+            <div class="container">
+                <h2>Simple & Transparent Pricing</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div>
+                            <h3>Starter</h3>
+                            <div class="price">$29<span>/month</span></div>
+                            <ul>
+                                <li>✓ 1 Landing Page Generation</li>
+                                <li>✓ Basic Launch Copy</li>
+                                <li>✓ Standard Support</li>
+                                <li>✓ 5-minute Real-Time Edits</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="btn">Choose Starter</a>
+                    </div>
+                    <div class="pricing-card highlight">
+                        <div>
+                            <h3>Pro</h3>
+                            <div class="price">$79<span>/month</span></div>
+                            <ul>
+                                <li>✓ Unlimited Landing Page Generations</li>
+                                <li>✓ Advanced Launch Copy & SEO</li>
+                                <li>✓ Professional Investor Deck</li>
+                                <li>✓ Priority Support</li>
+                                <li>✓ GDPR-Compliant Data Storage</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="btn">Choose Pro</a>
+                    </div>
+                    <div class="pricing-card">
+                        <div>
+                            <h3>Enterprise</h3>
+                            <div class="price">Custom</div>
+                            <ul>
+                                <li>✓ All Pro Features</li>
+                                <li>✓ Dedicated Account Manager</li>
+                                <li>✓ Custom Integrations</li>
+                                <li>✓ On-demand AI consulting</li>
+                                <li>✓ Advanced Security & Compliance</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="btn">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Ready to Launch Your Vision?</h2>
+                <p>Fill out the form below and let's get your startup off the ground.</p>
+                <div class="contact-form-wrapper">
+                    <form action="#" method="POST">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="message">Your Idea / Message</label>
+                        <textarea id="message" name="message" required></textarea>
+
+                        <button type="submit" class="btn">Send Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 LaunchGen AI. All rights reserved. <br> GDPR compliant and secure – your data is safe with us.</p>
+        </div>
+    </footer>
+</body>
+</html>
