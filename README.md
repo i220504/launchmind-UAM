@@ -3,14 +3,14 @@
 This project is a production-style Python implementation of the LaunchMind assignment using:
 
 - CrewAI for agent reasoning workflows
-- OpenAI models for every agent
+- Provider-configurable LLMs across the agent system
 - Redis pub/sub for inter-agent messaging
 - Real GitHub API integration for issue, branch, commit, PR, and inline review comments
 - Real Slack API integration for launch notifications
 - Real email sending via SendGrid or SMTP
 - JSONL logs, message traceability, retries, and CEO-visible failure escalation
 
-For assignment submission, keep `LLM_PROVIDER=openai` to remain aligned with the stated OpenAI requirement. For local cost-saving tests, the repo also supports OpenRouter-compatible free models.
+The project supports multiple providers, including OpenAI, OpenRouter-compatible models, and Gemini for engineer-specific generation paths.
 
 ## Public Repository
 
@@ -20,7 +20,7 @@ For assignment submission, keep `LLM_PROVIDER=openai` to remain aligned with the
 
 ## Project Overview
 
-At runtime, the user provides a startup idea. The CEO agent decomposes the idea into structured work, coordinates Product, Engineer, Marketing, and QA agents through Redis pub/sub, reviews their outputs using OpenAI, triggers revision loops where needed, and posts a final summary to Slack.
+At runtime, the user provides a startup idea. The CEO agent decomposes the idea into structured work, coordinates Product, Engineer, Marketing, and QA agents through Redis pub/sub, reviews their outputs with LLM reasoning, triggers revision loops where needed, and posts a final summary to Slack.
 
 Every inter-agent message uses this exact schema:
 
@@ -48,17 +48,14 @@ Every inter-agent message uses this exact schema:
 
 ## Bonus Points Strategy
 
-Feasible under the all-OpenAI constraint:
+Implemented bonus-aligned items:
 
 - QA agent: yes
 - Redis pub/sub message bus: yes
 - Graceful failure handling with retries and escalation: yes
 - Multiple feedback loops: yes
 - Full traceability and logging: yes
-
-Not feasible under the stated constraint:
-
-- Different LLM providers bonus: no, because all agents must use OpenAI
+- Different LLM providers: yes
 
 ## Startup Idea
 
@@ -212,7 +209,7 @@ SMTP option:
 
 ### 6. Configure LLM Provider
 
-OpenAI path for the graded assignment:
+OpenAI path:
 
 1. Set `LLM_PROVIDER=openai`
 2. Set `OPENAI_API_KEY`
@@ -223,6 +220,12 @@ OpenRouter path for free local testing:
 1. Set `LLM_PROVIDER=openrouter`
 2. Set `OPENROUTER_API_KEY`
 3. Optionally change `OPENROUTER_MODEL` such as `openrouter/free`
+
+Gemini path, currently used for the engineer provider override:
+
+1. Set `ENGINEER_LLM_PROVIDER=gemini`
+2. Set `GEMINI_API_KEY`
+3. Optionally change `GEMINI_MODEL`
 
 ### 7. Create your `.env`
 
@@ -302,7 +305,7 @@ This makes it much easier to show the entire assignment flow from one screen ins
 
 Handled failure scenarios:
 
-- OpenAI timeout or malformed output: retry, then fallback direct JSON call, then escalate to CEO.
+- LLM timeout, malformed output, or rate limiting: retry, then provider-aware fallback handling, then escalate to CEO.
 - Redis connection issue: ping check and retry-wrapped publish.
 - GitHub API failure: retries, then agent sends `error` message to CEO.
 - Slack API failure: retries, then escalate. Final CEO Slack failure is recorded without deadlocking the run.
@@ -329,7 +332,7 @@ Handled failure scenarios:
 
 - Python implementation: complete
 - CrewAI multi-agent framework: complete
-- OpenAI for all agents: complete
+- Multi-provider LLM support: complete
 - Redis pub/sub: complete
 - Structured JSON inter-agent messages: complete
 - CEO dynamic orchestration with LLM: complete
