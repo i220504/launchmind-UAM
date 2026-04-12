@@ -258,7 +258,7 @@ python3 main.py --idea "Negotiation-as-a-Service AI that negotiates salaries, ca
 
 ## Slack Proof
 
-- Slack workspace invite link: add your shareable workspace or channel invite link before submission if you want a direct public link here
+- Slack workspace link: [launchmindhq.slack.com](https://launchmindhq.slack.com)
 - Alternative proof path: include screenshots of the Slack bot messages in the repository and link them here if you do not want to expose the invite publicly
 - Current implementation proof file: [`integrations/slack_client.py`](./integrations/slack_client.py)
 
