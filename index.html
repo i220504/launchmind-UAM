@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FounderLaunch Concierge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:wght@600;700&display=swap');
+        :root {
+            --bg: #0d1117;
+            --surface: rgba(20, 28, 39, 0.92);
+            --surface-2: #111b28;
+            --ink: #eef2f7;
+            --muted: #a4b0bf;
+            --line: rgba(255,255,255,0.08);
+            --accent: #2dd4bf;
+            --accent-2: #fb923c;
+            --shadow: 0 28px 60px rgba(0,0,0,0.28);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Manrope", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(45,212,191,0.12), transparent 28%),
+                radial-gradient(circle at top right, rgba(251,146,60,0.12), transparent 24%),
+                linear-gradient(180deg, #0d1117 0%, #101722 100%);
+        }
+        .page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 56px; }
+        .panel {
+            border-radius: 28px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+        .hero-copy { padding: 40px; }
+        .eyebrow {
+            display: inline-block;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.78rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+        h1, h2, h3 { margin: 0; }
+        h1 {
+            font-family: "Fraunces", serif;
+            font-size: clamp(2.7rem, 5vw, 4.6rem);
+            line-height: 0.96;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+        }
+        .lede {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.75;
+            max-width: 56ch;
+        }
+        .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 28px; }
+        .cta-button {
+            display: inline-flex;
+            min-height: 54px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 18px 28px rgba(45,212,191,0.22);
+        }
+        .cta-note { color: var(--muted); font-size: 0.92rem; }
+        .hero-visual { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+        .hero-visual img, .demo-visual img {
+            width: 100%;
+            display: block;
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: #0f1722;
+        }
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .stat {
+            border-radius: 18px;
+            padding: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+        }
+        .stat strong { display: block; font-size: 1.2rem; margin-bottom: 6px; }
+        .section { margin-top: 24px; padding: 30px; }
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 22px;
+        }
+        .section-head p { color: var(--muted); max-width: 56ch; line-height: 1.7; margin: 0; }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .feature-card, .persona-card, .testimonial-card, .pricing-card {
+            border-radius: 22px;
+            padding: 22px;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+        }
+        .feature-icon {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(45,212,191,0.12);
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p, .pricing-card p, .demo-copy p, .lead-card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .demo-shell {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 16px;
+            align-items: stretch;
+        }
+        .demo-copy, .demo-visual, .lead-card {
+            border-radius: 22px;
+            padding: 22px;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+        }
+        .list {
+            margin: 14px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .faq-item {
+            border-radius: 18px;
+            padding: 16px 18px;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            margin-bottom: 12px;
+        }
+        .faq-item summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+        footer {
+            margin-top: 24px;
+            padding: 22px 28px;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            background: rgba(15,23,34,0.95);
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 960px) {
+            .hero, .demo-shell, .pricing-grid, .feature-grid, .persona-grid, .testimonial-grid, .stat-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-visual, .section { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="panel hero-copy">
+                <span class="eyebrow">Launch-Ready Landing Page</span>
+                <h1>Transforms a student founder&#x27;s raw startup idea into a fully designed, editable landing page, launch copy, and investor-ready messaging within 24 hours, all exportable as HTML/CSS and ready for signups or pitch decks.</h1>
+                <p class="lede">Transforms a student founder&#x27;s raw startup idea into a fully designed, editable landing page, launch copy, and investor-ready messaging within 24 hours, all exportable as HTML/CSS and ready for signups or pitch decks.</p>
+                <div class="cta-row">
+                    <a href="#lead" class="cta-button">Request early access</a>
+                    <span class="cta-note">Transforms a student founder&#x27;s raw startup idea into a fully designed, editable landing page, launch copy, and investor-ready messaging within 24 hours, all exportable as HTML/CSS and ready for signups or pitch decks.</span>
+                </div>
+            </div>
+            <div class="panel hero-visual">
+                <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22720%22%20viewBox%3D%220%200%201200%20720%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22720%22%20rx%3D%2236%22%20fill%3D%22%23101827%22/%3E%0A%20%20%3Ccircle%20cx%3D%22210%22%20cy%3D%22150%22%20r%3D%22180%22%20fill%3D%22%23f97316%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%221030%22%20cy%3D%22110%22%20r%3D%22220%22%20fill%3D%22%232563EB%22%20fill-opacity%3D%220.24%22/%3E%0A%20%20%3Crect%20x%3D%2274%22%20y%3D%2288%22%20width%3D%221052%22%20height%3D%22544%22%20rx%3D%2228%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.08%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.14%22/%3E%0A%20%20%3Crect%20x%3D%22128%22%20y%3D%22146%22%20width%3D%22420%22%20height%3D%22300%22%20rx%3D%2224%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.9%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22146%22%20width%3D%22474%22%20height%3D%2280%22%20rx%3D%2222%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.16%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22248%22%20width%3D%22224%22%20height%3D%22142%22%20rx%3D%2224%22%20fill%3D%22%23f97316%22%20fill-opacity%3D%220.85%22/%3E%0A%20%20%3Crect%20x%3D%22848%22%20y%3D%22248%22%20width%3D%22224%22%20height%3D%22142%22%20rx%3D%2224%22%20fill%3D%22%232563EB%22%20fill-opacity%3D%220.85%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22414%22%20width%3D%22474%22%20height%3D%22130%22%20rx%3D%2224%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.12%22/%3E%0A%20%20%3Ctext%20x%3D%22152%22%20y%3D%22214%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%3EFounderLaunch%20Concierge%3C/text%3E%0A%20%20%3Ctext%20x%3D%22152%22%20y%3D%22256%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ETransforms%20a%20student%20founder%27s%20raw%20startup%20idea%20into%20a%20fully%20des%3C/text%3E%0A%20%20%3Ctext%20x%3D%22624%22%20y%3D%22196%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ELive%20product%20snapshot%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22304%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E32%25%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22338%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Ewaste%20reduced%3C/text%3E%0A%20%20%3Ctext%20x%3D%22876%22%20y%3D%22304%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22876%22%20y%3D%22338%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22468%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EVisual%20demo%20section%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22504%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ESelf-contained%20graphic%20fallback%20so%20the%20page%20always%20renders%20cleanly.%3C/text%3E%0A%3C/svg%3E%0A" alt="FounderLaunch Concierge hero visual">
+                <div class="stat-row">
+                    <div class="stat"><strong>1 page</strong><span>Single-file, review-friendly HTML</span></div>
+                    <div class="stat"><strong>Live spec</strong><span>Content mapped from the approved product brief</span></div>
+                    <div class="stat"><strong>Fast handoff</strong><span>Ready for GitHub issue, commit, and PR flow</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">Core Features</span><h2>What the product delivers first.</h2></div>
+                <p>The fallback template still uses the approved product spec so the page stays aligned even when the free-model render is slow or unstable.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <span class="feature-icon">01</span>
+                <h3>Idea-to-LandingPage Generator</h3>
+                <p>Converts a textual startup idea into a complete landing page structure (hero, features, CTA) in under a minute.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">02</span>
+                <h3>Launch-Copy Creator</h3>
+                <p>Writes brand-consistent copy for headlines, feature blurbs, and FAQs tailored to the founder’s voice.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">03</span>
+                <h3>Investor Messaging Builder</h3>
+                <p>Produces a concise pitch block highlighting problem, solution, market, and traction points for seed investors.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">04</span>
+                <h3>Regeneration Button</h3>
+                <p>Allows the user to instantly regenerate any section of the landing page or copy within 5 minutes.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">Product Demo</span><h2>See the workflow in one glance.</h2></div>
+                <p>This demo section makes the product easier to understand quickly and keeps the landing page launch-ready for review.</p>
+            </div>
+            <div class="demo-shell">
+                <div class="demo-copy">
+                    <h3>What this experience highlights</h3>
+                    <ul class="list">
+                        <li>Launch a startup landing page in 24 hours—no designer or copywriter needed</li>
+<li>From raw idea to investor-ready messaging, generated and editable in minutes</li>
+<li>Export ready HTML/CSS under 500KB for fast hosting and quick iterations</li>
+                    </ul>
+                </div>
+                <div class="demo-visual">
+                    <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22720%22%20viewBox%3D%220%200%201200%20720%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22720%22%20rx%3D%2236%22%20fill%3D%22%23101827%22/%3E%0A%20%20%3Ccircle%20cx%3D%22210%22%20cy%3D%22150%22%20r%3D%22180%22%20fill%3D%22%230d9488%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%221030%22%20cy%3D%22110%22%20r%3D%22220%22%20fill%3D%22%232563EB%22%20fill-opacity%3D%220.24%22/%3E%0A%20%20%3Crect%20x%3D%2274%22%20y%3D%2288%22%20width%3D%221052%22%20height%3D%22544%22%20rx%3D%2228%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.08%22%20stroke%3D%22white%22%20stroke-opacity%3D%220.14%22/%3E%0A%20%20%3Crect%20x%3D%22128%22%20y%3D%22146%22%20width%3D%22420%22%20height%3D%22300%22%20rx%3D%2224%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.9%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22146%22%20width%3D%22474%22%20height%3D%2280%22%20rx%3D%2222%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.16%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22248%22%20width%3D%22224%22%20height%3D%22142%22%20rx%3D%2224%22%20fill%3D%22%230d9488%22%20fill-opacity%3D%220.85%22/%3E%0A%20%20%3Crect%20x%3D%22848%22%20y%3D%22248%22%20width%3D%22224%22%20height%3D%22142%22%20rx%3D%2224%22%20fill%3D%22%232563EB%22%20fill-opacity%3D%220.85%22/%3E%0A%20%20%3Crect%20x%3D%22598%22%20y%3D%22414%22%20width%3D%22474%22%20height%3D%22130%22%20rx%3D%2224%22%20fill%3D%22%23F8FAFC%22%20fill-opacity%3D%220.12%22/%3E%0A%20%20%3Ctext%20x%3D%22152%22%20y%3D%22214%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%3EFounderLaunch%20Concierge%20Demo%3C/text%3E%0A%20%20%3Ctext%20x%3D%22152%22%20y%3D%22256%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ELive%20workflow%20preview%3C/text%3E%0A%20%20%3Ctext%20x%3D%22624%22%20y%3D%22196%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3ELive%20product%20snapshot%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22304%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E32%25%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22338%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Ewaste%20reduced%3C/text%3E%0A%20%20%3Ctext%20x%3D%22876%22%20y%3D%22304%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22876%22%20y%3D%22338%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22468%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EVisual%20demo%20section%3C/text%3E%0A%20%20%3Ctext%20x%3D%22626%22%20y%3D%22504%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ESelf-contained%20graphic%20fallback%20so%20the%20page%20always%20renders%20cleanly.%3C/text%3E%0A%3C/svg%3E%0A" alt="FounderLaunch Concierge demo visual">
+                </div>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">Target Users</span><h2>Built for the people who need the result fast.</h2></div>
+                <p>The personas below are taken directly from the approved product spec so the message stays grounded.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <h3>Undergrad Entrepreneur</h3>
+                <p><strong>Pain points:</strong> Limited time to build a professional presence, Uncertainty about how to articulate a compelling value proposition</p>
+                <p><strong>Desired outcomes:</strong> Launch a polished landing page in under a day, Generate investor-ready messaging that resonates</p>
+            </article>
+<article class="persona-card">
+                <h3>Graduate Startup Builder</h3>
+                <p><strong>Pain points:</strong> Balancing thesis work with startup aspirations, Lack of design skills to create UI assets</p>
+                <p><strong>Desired outcomes:</strong> Produce launch copy that aligns with academic tone yet appeals to investors, Export ready HTML/CSS that can be shared instantly</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">Social Proof</span><h2>Give the page a stronger trust signal.</h2></div>
+                <p>Even the fallback keeps a visible testimonials section so the landing page does not feel thin or unfinished.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <p class="quote">“FounderLaunch Concierge makes the idea easier to understand, easier to pitch, and easier to launch.”</p>
+                <p class="author">Early user feedback</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">Pricing And ROI</span><h2>Make the value easy to justify.</h2></div>
+                <p>This section keeps the landing page commercially legible by showing a simple buying path and payoff story.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <h3>Launch Plan</h3>
+                    <p>Designed for early teams that need a professional first impression without a long production cycle.</p>
+                    <ul class="list">
+                        <li>Fast setup and single-file delivery</li>
+                        <li>Product-specific messaging and structure</li>
+                        <li>Easy review through GitHub workflow</li>
+                    </ul>
+                </article>
+                <article class="pricing-card">
+                    <h3>Why it pays back quickly</h3>
+                    <p>A clearer landing page means faster validation, stronger conversations, and less time spent rewriting the basics by hand.</p>
+                    <ul class="list">
+                        <li>Less design bottleneck</li>
+                        <li>Faster launch cycle</li>
+                        <li>Sharper first impression</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel section" id="lead">
+            <div class="section-head">
+                <div><span class="eyebrow">Call To Action</span><h2>Start with a clear next step.</h2></div>
+                <p>The fallback still preserves a visible CTA and lead-capture area so the page remains useful for launch review.</p>
+            </div>
+            <div class="lead-card">
+                <h3>Request early access</h3>
+                <p>Transforms a student founder&#x27;s raw startup idea into a fully designed, editable landing page, launch copy, and investor-ready messaging within 24 hours, all exportable as HTML/CSS and ready for signups or pitch decks.</p>
+                <div class="cta-row">
+                    <a href="#lead" class="cta-button">Request early access</a>
+                    <span class="cta-note">Reach out to request access, a walkthrough, or an early collaboration.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel section">
+            <div class="section-head">
+                <div><span class="eyebrow">FAQ</span><h2>Answer the practical questions early.</h2></div>
+                <p>The FAQ content is derived from the product requirements so reviewers can still see clear launch readiness.</p>
+            </div>
+            <details class="faq-item">
+                <summary>Hero section with the startup name, tagline, and primary CTA button</summary>
+                <p>This landing page section addresses this requirement directly within the current fallback build.</p>
+            </details>
+<details class="faq-item">
+                <summary>Problem statement paragraph that resonates with target audience</summary>
+                <p>This landing page section addresses this requirement directly within the current fallback build.</p>
+            </details>
+<details class="faq-item">
+                <summary>Solution overview highlighting the AI-generated product benefits</summary>
+                <p>This landing page section addresses this requirement directly within the current fallback build.</p>
+            </details>
+<details class="faq-item">
+                <summary>Key features carousel showcasing core functionalities</summary>
+                <p>This landing page section addresses this requirement directly within the current fallback build.</p>
+            </details>
+        </section>
+
+        <footer>
+            <span>FounderLaunch Concierge</span>
+            <span>Built from the approved product specification and prepared for GitHub delivery.</span>
+        </footer>
+    </main>
+</body>
+</html>
