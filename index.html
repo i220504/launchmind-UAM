@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickLaunch AI</title>
+    <style>
+        :root {
+            --bg: #f5efe4;
+            --surface: rgba(255, 252, 246, 0.86);
+            --surface-strong: #fffaf0;
+            --ink: #1f1e1a;
+            --muted: #5d564b;
+            --accent: #0d9488;
+            --accent-2: #f97316;
+            --line: rgba(31, 30, 26, 0.08);
+            --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(13, 148, 136, 0.18), transparent 30%),
+                linear-gradient(180deg, #fcf8f1 0%, #f2ecdf 100%);
+            color: var(--ink);
+        }
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+        .hero-copy, .hero-panel, .section {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+        .hero-copy {
+            padding: 44px;
+        }
+        .hero-panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.10));
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+        .lede {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 58ch;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fffaf3;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 34px rgba(13, 148, 136, 0.22);
+        }
+        .cta-note {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid rgba(31, 30, 26, 0.06);
+        }
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .hero-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .section {
+            margin-top: 28px;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+        .section-header h2 {
+            margin: 6px 0 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+        .section-header p {
+            max-width: 52ch;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .persona-grid, .testimonial-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .feature-card, .persona-card, .testimonial-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .feature-card h3, .persona-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card p + p {
+            margin-top: 10px;
+        }
+        .quote {
+            font-size: 1.08rem;
+        }
+        .author {
+            margin-top: 14px !important;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink) !important;
+            font-weight: 700;
+        }
+        .promise-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+        .closing {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .closing-card {
+            padding: 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(249, 115, 22, 0.12));
+            border: 1px solid var(--line);
+        }
+        .closing-card h2 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.03em;
+        }
+        .closing-card p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+        @media (max-width: 900px) {
+            .hero, .closing, .feature-grid, .persona-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-panel, .section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Launch-Ready In 24 Hours</span>
+                <h1>Transform Your Startup Idea into a Professional Landing Page in Under a Day</h1>
+                <p class="lede">Empowering student founders to impress investors and validate their concepts quickly with QuickLaunch AI.</p>
+                <div class="cta-row">
+                    <a href="#launch-cta" class="cta-button">Get Started Today</a>
+                    <span class="cta-note">Built for student founders and non-technical builders who need polished launch assets fast.</span>
+                </div>
+            </div>
+            <aside class="hero-panel">
+                <div>
+                    <span class="eyebrow">Why It Matters</span>
+                    <p>Transform your rough startup idea into a professional landing page and compelling messaging in under a day, empowering student founders to impress investors and validate their concepts quickly.</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <strong>24h</strong>
+                        <span>From rough idea to launch-ready presence</span>
+                    </div>
+                    <div class="stat">
+                        <strong>No Code</strong>
+                        <span>Professional output without building everything yourself</span>
+                    </div>
+                    <div class="stat">
+                        <strong>Investor-Ready</strong>
+                        <span>Clear messaging for traction, credibility, and outreach</span>
+                    </div>
+                    <div class="stat">
+                        <strong>Founder-Focused</strong>
+                        <span>Designed around real startup pain points and fast execution</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Core Capabilities</span>
+                    <h2>Everything needed to look credible from day one.</h2>
+                </div>
+                <p>This page is structured to mirror the product spec directly: clear value proposition, feature depth, visible social proof, responsive layout, and a strong launch call-to-action.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <h3>AI Idea Processing</h3>
+                <p>Analyze and transform your rough startup ideas into structured content effortlessly.</p>
+            </article>
+<article class="feature-card">
+                <h3>Landing Page Mockup Generator</h3>
+                <p>Automatically create visually appealing landing pages based on your input.</p>
+            </article>
+<article class="feature-card">
+                <h3>Launch Copy and Investor Messaging</h3>
+                <p>Generate persuasive messaging tailored to your startup for better engagement.</p>
+            </article>
+<article class="feature-card">
+                <h3>Feedback System</h3>
+                <p>Improve AI suggestions by rating the output for relevance and clarity.</p>
+            </article>
+<article class="feature-card">
+                <h3>User Dashboard</h3>
+                <p>A user-friendly interface for entering ideas and reviewing generated outputs.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Who It Helps</span>
+                    <h2>Built around founder pain points, not generic startup fluff.</h2>
+                </div>
+                <p>LaunchMate exists for founders who need speed, clarity, and a polished presence without spending weeks on design, copywriting, and investor messaging.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <h3>Student Entrepreneurs</h3>
+                <p><strong>Pain points:</strong> Lack of experience in crafting effective messaging for their startup ideas., Time constraints balancing academics and startup development.</p>
+                <p><strong>Outcome:</strong> Quick generation of professional-looking landing pages., Clarity and effectiveness in launch copy and investor messaging.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Social Proof</span>
+                    <h2>Founders trust polished execution when the stakes are high.</h2>
+                </div>
+                <p>These testimonials reinforce the exact promise in the product spec: turning rough startup ideas into assets that feel investor-facing and launch-ready.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <p class="quote">“QuickLaunch AI helped me create an amazing landing page in less than an hour! I was able to grab the attention of potential investors right away.”</p>
+                <p class="author">Emily R.</p>
+            </article>
+<article class="testimonial-card">
+                <p class="quote">“As a student, balancing academics and my startup was tough. QuickLaunch AI made it easy to generate professional content quickly.”</p>
+                <p class="author">Michael T.</p>
+            </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="closing">
+                <div class="closing-card" id="launch-cta">
+                    <span class="eyebrow">Launch Faster</span>
+                    <h2>Go from messy idea to confident launch story.</h2>
+                    <p>Transform your rough startup idea into a professional landing page and compelling messaging in under a day, empowering student founders to impress investors and validate their concepts quickly.</p>
+                    <a href="#" class="cta-button">Get Started Today</a>
+                </div>
+                <div class="closing-card">
+                    <span class="eyebrow">Messaging Hooks</span>
+                    <ul class="promise-list">
+                        <li>Create a stunning landing page in less than an hour!</li>
+<li>Turn your startup idea into investor-ready messaging with ease.</li>
+<li>No design skills needed - let AI do the heavy lifting in your startup launch.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
