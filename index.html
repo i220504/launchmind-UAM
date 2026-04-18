@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapCheck</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:wght@600;700&display=swap');
+        :root {
+            --bg: #f4f0ff;
+            --surface: rgba(253, 250, 255, 0.84);
+            --surface-strong: #fffaff;
+            --ink: #241a34;
+            --muted: #655579;
+            --accent: #7c3aed;
+            --accent-2: #ec4899;
+            --line: rgba(31, 30, 26, 0.08);
+            --shadow: 0 24px 60px rgba(31, 30, 26, 0.12);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(124, 58, 237, 0.14), transparent 28%),
+                radial-gradient(circle at top right, rgba(236, 72, 153, 0.16), transparent 30%),
+                linear-gradient(180deg, #fbf8ff 0%, #efe7fb 100%);
+            color: var(--ink);
+        }
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+        .hero-copy {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-copy, .hero-panel, .section {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+        .hero-copy {
+            padding: 44px;
+        }
+        .hero-copy::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.12), rgba(236, 72, 153, 0.10));
+            overflow: hidden;
+        }
+        .hero-media {
+            position: relative;
+            min-height: 240px;
+            margin-top: 18px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.08) contrast(1.02);
+        }
+        .hero-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(24, 32, 51, 0.00), rgba(24, 32, 51, 0.34));
+        }
+        .hero-media-label {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            z-index: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.82);
+            color: var(--ink);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+        .lede {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            max-width: 58ch;
+        }
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            padding: 0 24px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            color: #fffaf3;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 16px 34px rgba(124, 58, 237, 0.22);
+        }
+        .cta-note {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(251, 245, 255, 0.88);
+            border: 1px solid rgba(31, 30, 26, 0.06);
+        }
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .hero-panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .section {
+            margin-top: 28px;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+        .section-header h2 {
+            margin: 6px 0 0;
+            font-size: clamp(1.8rem, 3vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+        .section-header p {
+            max-width: 52ch;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .feature-grid, .persona-grid, .testimonial-grid {
+            display: grid;
+            gap: 18px;
+        }
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .persona-grid, .testimonial-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .dashboard-shell {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        .dashboard-card, .sidebar-card, .faq-item, .newsletter-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .dashboard-visual {
+            margin-top: 18px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.5);
+        }
+        .dashboard-visual img {
+            width: 100%;
+            display: block;
+        }
+        .metric {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(251, 245, 255, 0.88);
+        }
+        .metric strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .dashboard-flow {
+            margin-top: 18px;
+            display: grid;
+            gap: 12px;
+        }
+        .flow-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.48);
+            border: 1px solid var(--line);
+        }
+        .flow-step span {
+            min-width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+        }
+        .feature-card, .persona-card, .testimonial-card {
+            padding: 22px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .feature-icon, .persona-icon, .testimonial-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(251, 245, 255, 0.88));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+            font-size: 1.4rem;
+        }
+        .feature-card h3, .persona-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .feature-card p, .persona-card p, .testimonial-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .persona-card p + p {
+            margin-top: 10px;
+        }
+        .quote {
+            font-size: 1.08rem;
+        }
+        .author {
+            margin-top: 14px !important;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--ink) !important;
+            font-weight: 700;
+        }
+        .case-link {
+            margin-top: 10px !important;
+            display: inline-block;
+            color: var(--accent);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .promise-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+        .closing {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .closing-card {
+            padding: 28px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.10), rgba(236, 72, 153, 0.12));
+            border: 1px solid var(--line);
+        }
+        .closing-card h2 {
+            margin: 0 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.03em;
+        }
+        .closing-card p {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+        .newsletter-card form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .newsletter-card input {
+            flex: 1 1 220px;
+            min-height: 52px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,0.82);
+            font: inherit;
+        }
+        .newsletter-card button {
+            min-height: 52px;
+            padding: 0 20px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .pricing-card {
+            padding: 24px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid var(--line);
+        }
+        .pricing-card h3 {
+            margin: 8px 0 12px;
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            letter-spacing: -0.03em;
+        }
+        .pricing-card h3 span {
+            font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+            font-size: 1rem;
+            color: var(--muted);
+            margin-left: 4px;
+        }
+        .featured-tier {
+            background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(251, 245, 255, 0.88));
+        }
+        .roi-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .roi-badges span {
+            display: inline-flex;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(251, 245, 255, 0.88);
+            border: 1px solid var(--line);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+        @media (max-width: 900px) {
+            .hero, .closing, .feature-grid, .persona-grid, .testimonial-grid, .dashboard-shell, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-metrics {
+                grid-template-columns: 1fr;
+            }
+            .hero-copy, .hero-panel, .section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Launch-Ready In 24 Hours</span>
+                <h1>SnapCheck: Public Snapchat profile checks with provenance—Verified vs Estimated vs Unavailable</h1>
+                <p class="lede">Look up any Snapchat public username in seconds—no login required. Get clearly labeled metrics, transparent sources, caching timestamps, and a shareable results link that won’t imply access to private follower counts.</p>
+                <div class="cta-row">
+                    <a href="#launch-cta" class="cta-button">Check a Snapchat username</a>
+                    <span class="cta-note">Built for student founders and non-technical builders who need polished launch assets fast.</span>
+                </div>
+            </div>
+            <aside class="hero-panel">
+                <div>
+                    <span class="eyebrow">Why It Matters</span>
+                    <p>A fast, legal-safe Snapchat public profile check that returns clearly labeled metrics (Verified, Estimated, Unavailable) with transparent data provenance—no login required.</p>
+                    <div class="hero-media">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22780%22%20viewBox%3D%220%200%201200%20780%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22780%22%20rx%3D%2240%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Crect%20x%3D%2250%22%20y%3D%2256%22%20width%3D%221100%22%20height%3D%22668%22%20rx%3D%2232%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Ccircle%20cx%3D%221020%22%20cy%3D%22130%22%20r%3D%22180%22%20fill%3D%22%23F97316%22%20fill-opacity%3D%220.28%22/%3E%0A%20%20%3Ccircle%20cx%3D%22180%22%20cy%3D%22620%22%20r%3D%22220%22%20fill%3D%22%230D9488%22%20fill-opacity%3D%220.20%22/%3E%0A%20%20%3Crect%20x%3D%22110%22%20y%3D%22120%22%20width%3D%22380%22%20height%3D%22480%22%20rx%3D%2228%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22120%22%20width%3D%22540%22%20height%3D%22104%22%20rx%3D%2224%22%20fill%3D%22%231F2937%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22250%22%20width%3D%22250%22%20height%3D%22158%22%20rx%3D%2224%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22540%22%20y%3D%22438%22%20width%3D%22540%22%20height%3D%22162%22%20rx%3D%2224%22%20fill%3D%22%23172554%22/%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22196%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%3ESnapCheck%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22236%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EStartup%20%C2%B7%20Technology%20%C2%B7%20Product%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22316%22%20fill%3D%22%230F172A%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2248%22%20font-weight%3D%22700%22%3EPlan%20tonight%27s%20recovery%3C/text%3E%0A%20%20%3Ctext%20x%3D%22146%22%20y%3D%22368%22%20fill%3D%22%23334155%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2220%22%3EForecast%20leftovers%2C%20publish%20offers%2C%20and%20watch%20redemptions%20update%20in%20one%20operator%20view.%3C/text%3E%0A%20%20%3Crect%20x%3D%22146%22%20y%3D%22430%22%20width%3D%22184%22%20height%3D%2254%22%20rx%3D%2227%22%20fill%3D%22%230F172A%22/%3E%0A%20%20%3Ctext%20x%3D%22184%22%20y%3D%22464%22%20fill%3D%22%23FFF7ED%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%3EBook%20a%20demo%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22184%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%20font-weight%3D%22700%22%3EService%20dashboard%20preview%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E18%20trays%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Epredicted%20unsold%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22340%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2246%22%20font-weight%3D%22800%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22864%22%20y%3D%22374%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3Erecovered%20tonight%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22498%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22574%22%20y%3D%22536%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EPredict%20surplus%20%E2%86%92%20recommend%20discount%20%E2%86%92%20push%20pickup%20offer%20%E2%86%92%20track%20redemption.%3C/text%3E%0A%3C/svg%3E%0A" alt="SnapCheck domain visual">
+                        <div class="hero-media-label">Launch-Ready In 24 Hours</div>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    
+                    <div class="stat">
+                        <strong>24h</strong>
+                        <span>From rough idea to launch-ready presence</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>No Code</strong>
+                        <span>Professional output without building everything yourself</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Investor-Ready</strong>
+                        <span>Sharper messaging for traction, credibility, and outreach</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>Brand Partnership Manager (Agency)</strong>
+                        <span>Designed around real user pain points and fast execution</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Who It Helps</span>
+                    <h2>Built around founder pain points, not generic startup fluff.</h2>
+                </div>
+                <p>SnapCheck is designed for founders who need speed, clarity, and a polished presence without losing weeks to design and copy iteration.</p>
+            </div>
+            <div class="persona-grid">
+                <article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">📱</span>
+                <h3>Brand Partnership Manager (Agency)</h3>
+                <p><strong>Pain points:</strong> Needs quick creator vetting without waiting for screenshots or back-and-forth, Worries about being misled by inflated or unverifiable metrics</p>
+                <p><strong>Outcome:</strong> Generate a shareable verification page for a Snapchat handle in seconds, See which metrics are truly public vs modeled vs unavailable</p>
+            </article>
+<article class="persona-card">
+                <span class="eyebrow">Built For</span>
+                <span class="persona-icon">💼</span>
+                <h3>Creator/Influencer (Snapchat-focused)</h3>
+                <p><strong>Pain points:</strong> Brands ask for proof of audience/engagement but Snapchat data is fragmented, Doesn’t want to hand over account credentials or connect platforms</p>
+                <p><strong>Outcome:</strong> Share a public, credible-looking profile check URL with provenance labels, Download a simple PNG/PDF to attach to emails or proposals</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Core Capabilities</span>
+                    <h2>Everything needed to look credible from day one.</h2>
+                </div>
+                <p>This page mirrors the product spec directly with a strong value proposition, visible social proof, responsive layout, and a persuasive launch call-to-action.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3>Username-based Snapchat public profile lookup—no login, no OAuth, no credentials</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">📈</span>
+                <h3>Every metric labeled as Verified, Estimated (with confidence), or Unavailable (with plain-English reason)</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">💡</span>
+                <h3>Provenance panel shows source type, retrieval time, and “what we can/can’t know” notes for compliance</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">📈</span>
+                <h3>Fast by default</h3>
+                <p>cached results served in &lt;=3s p95; uncached lookups &lt;=10s p95 with clear loading progress copy</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">⚙️</span>
+                <h3>Shareable results URL (/u/{username}) plus optional timestamped snapshot permalinks for decks and audit trails</h3>
+                <p>Professional launch support designed to move founders from idea to execution faster.</p>
+            </article>
+<article class="feature-card">
+                <span class="feature-icon">📈</span>
+                <h3>One-click exports</h3>
+                <p>download a clean summary card as PNG or PDF (includes labels, timestamp, and disclaimer)</p>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Product Demo</span>
+                    <h2>See the dashboard that turns waste into recoverable revenue.</h2>
+                </div>
+                <p>This visual walkthrough mirrors the dashboard requirement in the product spec by showing prediction metrics, recommended offers, and the action flow from waste forecast to published pickup deal.</p>
+            </div>
+            <div class="dashboard-shell">
+                <div class="dashboard-card">
+                    <span class="eyebrow">Dashboard Snapshot</span>
+                    <h3>Tonight’s recovery dashboard</h3>
+                    <div class="dashboard-visual">
+                        <img src="data:image/svg+xml;charset=UTF-8,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22760%22%20viewBox%3D%220%200%201200%20760%22%20fill%3D%22none%22%3E%0A%20%20%3Crect%20width%3D%221200%22%20height%3D%22760%22%20rx%3D%2240%22%20fill%3D%22%23FFF7ED%22/%3E%0A%20%20%3Crect%20x%3D%2242%22%20y%3D%2242%22%20width%3D%221116%22%20height%3D%22676%22%20rx%3D%2232%22%20fill%3D%22%23ffffff%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%2296%22%20width%3D%221012%22%20height%3D%2272%22%20rx%3D%2222%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%230D9488%22/%3E%0A%20%20%3Crect%20x%3D%22444%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%23F97316%22/%3E%0A%20%20%3Crect%20x%3D%22794%22%20y%3D%22210%22%20width%3D%22312%22%20height%3D%22188%22%20rx%3D%2228%22%20fill%3D%22%231D4ED8%22/%3E%0A%20%20%3Crect%20x%3D%2294%22%20y%3D%22438%22%20width%3D%22666%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23111827%22/%3E%0A%20%20%3Crect%20x%3D%22796%22%20y%3D%22438%22%20width%3D%22310%22%20height%3D%22212%22%20rx%3D%2228%22%20fill%3D%22%23F8FAFC%22/%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22140%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2224%22%20font-weight%3D%22700%22%3ESnapCheck%20demo%20section%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EWaste%20risk%3C/text%3E%0A%20%20%3Ctext%20x%3D%22130%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E34%25%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOffer%20uplift%3C/text%3E%0A%20%20%3Ctext%20x%3D%22480%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E2.1x%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22280%22%20fill%3D%22white%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ERecovered%20revenue%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22324%22%20fill%3D%22white%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%24420%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22500%22%20fill%3D%22%23E5E7EB%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3ELive%20workflow%3C/text%3E%0A%20%20%3Ctext%20x%3D%22128%22%20y%3D%22544%22%20fill%3D%22%23CBD5E1%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2219%22%3EForecast%20leftovers%2C%20set%20discount%20rules%2C%20and%20monitor%20claim%20activity%20in%20one%20place.%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22500%22%20fill%3D%22%230F172A%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2222%22%20font-weight%3D%22700%22%3EOperator%20outcomes%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22544%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3ELess%20spoilage%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22578%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EHigher%20close-time%20sell-through%3C/text%3E%0A%20%20%3Ctext%20x%3D%22830%22%20y%3D%22612%22%20fill%3D%22%23475569%22%20font-family%3D%22Manrope%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2218%22%3EMore%20predictable%20nightly%20margins%3C/text%3E%0A%3C/svg%3E%0A" alt="SnapCheck dashboard demo visual">
+                    </div>
+                    <div class="dashboard-metrics">
+                        
+                        <div class="metric">
+                            <strong>18 trays</strong>
+                            <span>Predicted unsold inventory</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>34%</strong>
+                            <span>Average waste reduction opportunity</span>
+                        </div>
+
+                        <div class="metric">
+                            <strong>$420</strong>
+                            <span>Recovered revenue with SnapCheck offers</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-flow">
+                        <div class="flow-step">
+                            <span>1</span>
+                            <div>
+                                <strong>Predict unsold inventory</strong>
+                                <p>PlatePilot identifies likely leftovers before closing using recent POS and inventory signals.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>2</span>
+                            <div>
+                                <strong>Generate a localized offer</strong>
+                                <p>The platform recommends discount depth, pickup timing, and the best nearby customer segment.</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <span>3</span>
+                            <div>
+                                <strong>Push offers and track redemptions</strong>
+                                <p>Managers can publish the deal, monitor conversions, and compare recovered revenue vs predicted waste.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <span class="eyebrow">Manager View</span>
+                    <h3>What the team sees before close</h3>
+                    <p>The dashboard surfaces waste risk, likely sell-through, active discounts, and the fastest actions to save inventory without manually recalculating offers.</p>
+                    <ul class="promise-list">
+                        <li>Predicted unsold meals by category</li>
+                        <li>Recommended discount window for fast conversion</li>
+                        <li>Offer performance and recovered revenue tracking</li>
+                        <li>Operational visibility for owners and shift managers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Social Proof</span>
+                    <h2>Founders trust polished execution when the stakes are high.</h2>
+                </div>
+                <p>These testimonials reinforce the exact promise in the product spec: rough startup ideas become launch-ready assets that feel credible and investor-facing.</p>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“SnapCheck made it easy to document what was actually public on Snapchat versus what had to be treated as an estimate. The provenance notes saved us time in client reporting.”</p>
+                <p class="author">Maya L., Partnerships Manager (Agency)</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+<article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“Brands kept asking for screenshots. Now I can send one link that clearly shows what’s verified and what’s not—without connecting my account.”</p>
+                <p class="author">Jordan K., Creator (Snapchat)</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+<article class="testimonial-card">
+                <span class="testimonial-badge">✨</span>
+                <p class="quote">“The labels and timestamps are the point. When a metric isn’t public, it’s marked Unavailable instead of guessing—and the PDF export drops straight into our vetting folder.”</p>
+                <p class="author">Evan R., Talent Ops</p>
+                <a href="#" class="case-link">View example case study</a>
+            </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Pricing And ROI</span>
+                    <h2>Show operators the savings case, not just the product story.</h2>
+                </div>
+                <p>This section turns the value proposition into an operator-friendly business case with a visible subscription price and a plain-language ROI explanation.</p>
+            </div>
+            <div class="pricing-grid">
+                <article class="pricing-card featured-tier">
+                    <span class="eyebrow">Launch Plan</span>
+                    <h3>$79<span>/month</span></h3>
+                    <p>Built for independent restaurants that need nightly waste predictions, discount recommendations, and a cleaner close-time workflow.</p>
+                    <ul class="promise-list">
+                        <li>Waste prediction dashboard</li>
+                        <li>Offer generation guidance</li>
+                        <li>Redemption and revenue visibility</li>
+                        <li>Fast onboarding for operators</li>
+                    </ul>
+                </article>
+                <article class="pricing-card roi-card">
+                    <span class="eyebrow">Expected Payback</span>
+                    <h3>Recover the fee in one busy week.</h3>
+                    <p>For restaurants losing margin to leftovers, preventing even a small amount of nightly spoilage can offset the subscription and turn waste into incremental revenue.</p>
+                    <div class="roi-badges">
+                        <span>Lower spoilage</span>
+                        <span>More close-time sell-through</span>
+                        <span>Clear nightly margin insight</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Lead Capture</span>
+                    <h2>Book a demo or join the launch list.</h2>
+                </div>
+                <p>SnapCheck needs both a demo signup CTA and a newsletter-style lead capture path so operators can either book a walkthrough immediately or stay informed until launch.</p>
+            </div>
+            <div class="newsletter-card">
+                <span class="eyebrow">Newsletter Signup</span>
+                <h3>See how restaurants reduce waste before closing time.</h3>
+                <form>
+                    <input type="email" placeholder="Enter your restaurant email">
+                    <button type="submit">Join the waitlist</button>
+                </form>
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">Frequently Asked Questions</span>
+                    <h2>Answer the questions restaurant teams ask before adopting new tools.</h2>
+                </div>
+                <p>The FAQ section addresses the operational objections most likely to slow down signups, which makes the launch page more conversion-ready and more aligned with the spec.</p>
+            </div>
+            <div class="faq-list">
+                <article class="faq-item">
+                    <h3>How does SnapCheck predict end-of-day waste?</h3>
+                    <p>It combines recent sales velocity, category-level inventory trends, and closing-time behavior to estimate what will likely remain unsold before service ends.</p>
+                </article>
+<article class="faq-item">
+                    <h3>Do restaurant teams need to change their POS workflow?</h3>
+                    <p>No. The platform is positioned as a lightweight layer that reads existing sales signals, recommends offers quickly, and helps teams act before inventory becomes waste.</p>
+                </article>
+<article class="faq-item">
+                    <h3>What do customers experience?</h3>
+                    <p>Nearby diners receive clear, time-sensitive offers for fresh discounted meals, making the value obvious while helping restaurants recover revenue that would otherwise be lost.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="closing">
+                <div class="closing-card" id="launch-cta">
+                    <span class="eyebrow">Launch Faster</span>
+                    <h2>Go from messy idea to confident launch story.</h2>
+                    <p>A fast, legal-safe Snapchat public profile check that returns clearly labeled metrics (Verified, Estimated, Unavailable) with transparent data provenance—no login required.</p>
+                    <a href="#" class="cta-button">Check a Snapchat username</a>
+                </div>
+                <div class="closing-card">
+                    <span class="eyebrow">Messaging Hooks</span>
+                    <ul class="promise-list">
+                        <li>“Know what’s public on Snapchat—instantly. Verified vs Estimated vs Unavailable.”</li>
+<li>“No login. No screenshots. A shareable profile check link in seconds.”</li>
+<li>“Provenance-first Snapchat checks: see exactly where each number came from and when.”</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
