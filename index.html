@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchBuddy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .cta {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        .features {
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        .feature {
+            margin: 10px 0;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{headline}}</h1>
+        <h2>{{subheadline}}</h2>
+    </header>
+    <div class="container">
+        <p>Transform your startup ideas with LaunchBuddy's AI-driven platform!</p>
+        <div class="features">
+            <h3>Features:</h3>
+            <ul>
+                <li class="feature">{{feature_bullets[0]}}</li>
+                <li class="feature">{{feature_bullets[1]}}</li>
+                <li class="feature">{{feature_bullets[2]}}</li>
+                <li class="feature">{{feature_bullets[3]}}</li>
+                <li class="feature">{{feature_bullets[4]}}</li>
+            </ul>
+        </div>
+        <a href="#" class="cta">{{cta_text}}</a>
+    </div>
+</body>
+</html>
